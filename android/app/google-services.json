@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "76571640114",
+    "project_id": "wiwalk",
+    "storage_bucket": "wiwalk.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:76571640114:android:b248788896f0dc5892972b",
+        "android_client_info": {
+          "package_name": "mn.wiwalk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBto8uE646FrspQ0glFuaHB-YdQjo07_Rg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
