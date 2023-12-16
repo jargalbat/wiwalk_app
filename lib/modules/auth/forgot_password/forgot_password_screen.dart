@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wiwalk_app/core/theme/assets.dart';
-import 'package:wiwalk_app/modules/authentication/widgets/footer.dart';
 import 'package:wiwalk_app/widgets/c_scaffold.dart';
+import 'package:wiwalk_app/widgets/footer/c_footer.dart';
 import 'package:wiwalk_app/widgets/text_field/c_text_field.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
@@ -49,8 +49,8 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
             ),
           ),
 
-          Footer(
-            child: Container(child: Text('hi')),
+          CFooter(
+            // child: Container(child: Text('hi')),
           )
         ],
       ),

@@ -8,7 +8,7 @@ import 'package:wiwalk_app/core/theme/c_size.dart';
 import 'package:wiwalk_app/core/utils/func.dart';
 import 'package:wiwalk_app/core/utils/shared_pref.dart';
 import 'package:wiwalk_app/data/models/auth/login_request.dart';
-import 'package:wiwalk_app/modules/authentication/auth_bloc.dart';
+import 'package:wiwalk_app/modules/auth/auth_bloc.dart';
 import 'package:wiwalk_app/widgets/buttons/button_settings.dart';
 import 'package:wiwalk_app/widgets/buttons/c_text_button.dart';
 import 'package:wiwalk_app/widgets/buttons/primary_button.dart';
@@ -99,8 +99,8 @@ class _LoginScreenState extends State<LoginScreen> {
               const Spacer(),
 
               Row(
-                // mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const Spacer(),
                   CTextButton(
                     onPressed: () {
                       context.pushNamed(RouteNames.forgotPassword);
@@ -108,7 +108,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     settings: ButtonSettings.large,
                     text: 'Нууц үг сэргээх',
                   ),
-
+                  const Spacer(),
                   Container(
                     height: 20.0,
                     width: 1.0,
@@ -121,7 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   //   endIndent: 0,
                   //   color: Colors.red,
                   // ),
-
+                  const Spacer(),
                   CTextButton(
                     onPressed: () {
                       context.pushNamed(RouteNames.signUp);
@@ -129,6 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     settings: ButtonSettings.large,
                     text: 'Бүртгүүлэх',
                   ),
+                  const Spacer(),
                 ],
               )
             ],
@@ -240,6 +241,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
 //
   Color getColor(Set<MaterialState> states) {
     return Colors.white;

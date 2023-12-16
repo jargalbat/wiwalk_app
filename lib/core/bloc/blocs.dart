@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiwalk_app/core/utils/logger.dart';
-import 'package:wiwalk_app/modules/authentication/auth_bloc.dart';
+import 'package:wiwalk_app/modules/auth/auth_bloc.dart';
 
 class Blocs {
   static final authBloc = AuthBloc();

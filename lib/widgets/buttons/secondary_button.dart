@@ -5,18 +5,21 @@ import 'package:wiwalk_app/core/theme/c_font_size.dart';
 import 'package:wiwalk_app/core/theme/c_size.dart';
 import 'button_settings.dart';
 
-/// Text button
-class CTextButton extends StatelessWidget {
-  const CTextButton({
+/// Secondary elevated button
+class SecondaryButton extends StatelessWidget {
+  const SecondaryButton({
     Key? key,
     required this.settings,
     this.onPressed,
     this.text,
     this.textStyle,
+    this.shape,
+    this.elevation,
     this.width,
     this.margin,
     this.loading,
     this.loadingText,
+    this.backgroundColor,
     this.prefixIcon,
     this.suffixIcon,
   }) : super(key: key);
@@ -25,10 +28,13 @@ class CTextButton extends StatelessWidget {
   final VoidCallback? onPressed;
   final String? text;
   final TextStyle? textStyle;
+  final OutlinedBorder? shape;
+  final double? elevation;
   final double? width;
   final EdgeInsets? margin;
   final bool? loading;
   final String? loadingText;
+  final Color? backgroundColor;
   final Widget? prefixIcon;
   final String? suffixIcon;
 
@@ -36,9 +42,8 @@ class CTextButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: margin,
-      height: settings.height,
-      child: InkWell(
-        onTap: (onPressed != null)
+      child: ElevatedButton(
+        onPressed: (onPressed != null)
             ? () {
                 if (loading ?? false) {
                   debugPrint('Loading... Please wait');
@@ -48,13 +53,32 @@ class CTextButton extends StatelessWidget {
                 onPressed?.call();
               }
             : null,
-        borderRadius: BorderRadius.circular(MButtonSize.borderRadius),
-        child: SizedBox(
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.zero,
+          // primary: Theme.of(context).buttonTheme.copyWith(
+          //       buttonColor: Colors.red,
+          //     ),
+          backgroundColor: backgroundColor ?? Colors.white,
+          shape: shape ??
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(MButtonSize.borderRadius),
+              ),
+          elevation: elevation ?? settings.elevation,
+          shadowColor: _shadowColor(),
+        ),
+        child: Container(
+          height: settings.height,
           width: width,
+          alignment: Alignment.center,
+          padding: const EdgeInsets.symmetric(horizontal: CSize.spacing32),
           child: _child(context),
         ),
       ),
     );
+  }
+
+  Color? _shadowColor() {
+    return settings == ButtonSettings.small ? Colors.transparent : null;
   }
 
   Widget _child(BuildContext context) {
@@ -76,12 +100,12 @@ class CTextButton extends StatelessWidget {
       }
     } else {
       return Row(
-        // mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           /// Prefix icon
           if (prefixIcon != null)
             Container(
-              margin: const EdgeInsets.only(right: CSize.spacing4),
+              margin: const EdgeInsets.only(right: CSize.spacing8),
               child: prefixIcon,
             ),
 
@@ -99,7 +123,7 @@ class CTextButton extends StatelessWidget {
           /// Suffix icon
           if (suffixIcon != null)
             Container(
-              margin: const EdgeInsets.only(left: CSize.spacing4),
+              margin: const EdgeInsets.only(left: CSize.spacing8),
               child: SvgPicture.asset(suffixIcon!),
             ),
         ],

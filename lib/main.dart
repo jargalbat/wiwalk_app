@@ -5,9 +5,8 @@ import 'package:wiwalk_app/core/bloc/refresh_bloc.dart';
 import 'package:wiwalk_app/core/router/custom_router.dart';
 import 'package:wiwalk_app/core/theme/theme_cubit.dart';
 import 'package:wiwalk_app/core/utils/shared_pref.dart';
-
 import 'core/bloc/blocs.dart';
-import 'modules/authentication/auth_bloc.dart';
+import 'modules/auth/auth_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

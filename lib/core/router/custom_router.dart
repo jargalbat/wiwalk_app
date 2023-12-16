@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wiwalk_app/core/utils/shared_pref.dart';
-import 'package:wiwalk_app/modules/authentication/auth_bloc.dart';
-import 'package:wiwalk_app/modules/authentication/forgot_password/forgot_password_screen.dart';
-import 'package:wiwalk_app/modules/authentication/login/login_screen.dart';
-import 'package:wiwalk_app/modules/authentication/sign_up/sign_up_screen.dart';
+import 'package:wiwalk_app/modules/auth/auth_bloc.dart';
+import 'package:wiwalk_app/modules/auth/forgot_password/forgot_password_screen.dart';
+import 'package:wiwalk_app/modules/auth/login/login_screen.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/dan_auth_screen.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/sign_up_screen.dart';
 import 'package:wiwalk_app/modules/challenge/challenge_detail_screen/challenge_detail_screen.dart';
 import 'package:wiwalk_app/modules/challenge/challenge_screen/challenge_screen.dart';
 import 'package:wiwalk_app/modules/home/home_screen.dart';
@@ -65,6 +66,13 @@ final GoRouter router = GoRouter(
           },
         ),
       ],
+    ),
+    GoRoute(
+      name: RouteNames.danAuth,
+      path: '/${RouteNames.danAuth}',
+      builder: (BuildContext context, GoRouterState state) {
+        return const DanAuthScreen();
+      },
     ),
     GoRoute(
       name: RouteNames.home,
