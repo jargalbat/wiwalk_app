@@ -4,6 +4,8 @@ import 'package:wiwalk_app/data/api/api_helper.dart';
 import 'package:wiwalk_app/data/api/c_client.dart';
 import 'package:wiwalk_app/data/models/auth/login_request.dart';
 import 'package:wiwalk_app/data/models/auth/login_response.dart';
+import 'package:wiwalk_app/data/models/auth/sign_up_request.dart';
+import 'package:wiwalk_app/data/models/auth/sign_up_response.dart';
 
 /// ----------------------------------------------------------------------------
 /// BLOC - Global data refresher bloc
@@ -20,6 +22,23 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     on<SignUpNextPageEvent>((event, emit) async {
       emit(SignUpNextPageState());
       emit(SignUpRefresh());
+    });
+
+    on<SignUpCredentialsEvent>((event, emit) async {
+      emit(SignUpLoadingState());
+
+      final response = await cClient.sendRequest(
+        httpMethod: HttpMethod.get,
+        path: ApiPaths.auth,
+        requestData: event.request,
+      );
+
+      SignUpResponse signUpResponse = SignUpResponse.fromJson(response.data);
+      if (signUpResponse.retType == 0) {
+        emit(SignUpSuccess(response: signUpResponse));
+      } else {
+        emit(SignUpFailed(message: signUpResponse.retDesc ?? 'Амжилтгүй'));
+      }
     });
   }
 }
@@ -38,14 +57,14 @@ class SignUpPrevPageEvent extends SignUpEvent {}
 
 class SignUpNextPageEvent extends SignUpEvent {}
 
-// class SignUpChangePageEvent extends SignUpEvent {
-//   final int index;
-//
-//   const SignUpChangePageEvent({required this.index});
-//
-//   @override
-//   List<Object> get props => [index];
-// }
+class SignUpCredentialsEvent extends SignUpEvent {
+  final SignUpRequest request;
+
+  const SignUpCredentialsEvent({required this.request});
+
+  @override
+  List<Object> get props => [request];
+}
 
 /// ----------------------------------------------------------------------------
 /// BLOC STATES
@@ -59,15 +78,26 @@ abstract class SignUpState extends Equatable {
 
 class SignUpRefresh extends SignUpState {}
 
+class SignUpLoadingState extends SignUpState {}
+
 class SignUpNextPageState extends SignUpState {}
 
 class SignUpPrevPageState extends SignUpState {}
 
-// class SignUpPageChangedState extends SignUpState {
-//   final int index;
-//
-//   const SignUpPageChangedState({required this.index});
-//
-//   @override
-//   List<Object> get props => [index];
-// }
+class SignUpSuccess extends SignUpState {
+  final SignUpResponse response;
+
+  const SignUpSuccess({required this.response});
+
+  @override
+  List<Object> get props => [response];
+}
+
+class SignUpFailed extends SignUpState {
+  final String message;
+
+  const SignUpFailed({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}

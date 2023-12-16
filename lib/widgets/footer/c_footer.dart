@@ -13,6 +13,7 @@ class CFooter extends StatelessWidget {
     this.onPressedButton1,
     this.button2Text,
     this.onPressedButton2,
+    this.loadingButton2,
   });
 
   final String? button1Text;
@@ -20,52 +21,61 @@ class CFooter extends StatelessWidget {
 
   final String? button2Text;
   final VoidCallback? onPressedButton2;
+  final bool? loadingButton2;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
+      width: context.width,
+      decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
-          stops: [0.0, 0.4],
+          stops: [0.0, 1.0],
           colors: [
-            context.theme.primaryColor,
-            const Color(0xFF106C80),
+            Color(0xFF106C80),
+            Color(0xFF1AADCC),
           ],
         ),
       ),
-      child: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(
-              CSize.spacing24, CSize.spacing24, CSize.spacing24, 0.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              /// Button 1
-              if (button1Text != null)
-                CTextButton(
-                  onPressed: onPressedButton1,
-                  settings: ButtonSettings.large,
-                  text: button1Text,
-                  textStyle: context.textStyles.heading16?.copyWith(
-                    color: context.colors.text5,
-                    fontWeight: FontWeight.w500,
+      child: Column(
+        children: [
+          /// Body
+          Container(
+            padding: const EdgeInsets.fromLTRB(CSize.spacing24, CSize.spacing24,
+                CSize.spacing24, CSize.spacing4),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                /// Button 1
+                if (button1Text != null)
+                  CTextButton(
+                    onPressed: onPressedButton1,
+                    settings: ButtonSettings.large,
+                    text: button1Text,
+                    textStyle: context.textStyles.heading16?.copyWith(
+                      color: context.colors.text5,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    prefixIcon:
+                        SvgPicture.asset('assets/images/core/arrow_prev.svg'),
                   ),
-                  prefixIcon:
-                      SvgPicture.asset('assets/images/core/arrow_prev.svg'),
-                ),
 
-              /// Button 2
-              if (button2Text != null)
-                SecondaryButton(
-                  onPressed: onPressedButton2,
-                  settings: ButtonSettings.large,
-                  text: button2Text,
-                ),
-            ],
+                /// Button 2
+                if (button2Text != null)
+                  SecondaryButton(
+                    onPressed: onPressedButton2,
+                    settings: ButtonSettings.large,
+                    text: button2Text,
+                    loading: loadingButton2,
+                  ),
+              ],
+            ),
           ),
-        ),
+
+          /// Padding
+          SizedBox(height: context.mediaQueryPadding.bottom),
+        ],
       ),
     );
   }

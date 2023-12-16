@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:wiwalk_app/core/router/route_names.dart';
-import 'package:wiwalk_app/modules/auth/sign_up/sign_up_bloc.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/bloc/sign_up_bloc.dart';
 import 'package:wiwalk_app/widgets/footer/c_footer.dart';
 
 class Page0Dan extends StatefulWidget {
@@ -19,21 +19,23 @@ class _Page0DanState extends State<Page0Dan> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        /// Text
-        Expanded(
-          child: Container(
-            margin: widget.margin,
-            child: const Text(
-              'ДАН танилт нэвтрэлтийн нэгдсэн системд хандах шаардлагатай.',
+    return GestureDetector(
+      child: Column(
+        children: [
+          /// Text
+          Expanded(
+            child: Container(
+              margin: widget.margin,
+              child: const Text(
+                'ДАН танилт нэвтрэлтийн нэгдсэн системд хандах шаардлагатай.',
+              ),
             ),
           ),
-        ),
 
-        //
-        _footer(),
-      ],
+          //
+          _footer(),
+        ],
+      ),
     );
   }
 

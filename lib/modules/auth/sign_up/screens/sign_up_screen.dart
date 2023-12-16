@@ -4,9 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:wiwalk_app/core/bloc/refresh_bloc.dart';
 import 'package:wiwalk_app/core/extensions/context_extensions.dart';
 import 'package:wiwalk_app/core/theme/c_size.dart';
+import 'package:wiwalk_app/core/utils/func.dart';
 import 'package:wiwalk_app/modules/auth/sign_up/pages/page0_dan.dart';
 import 'package:wiwalk_app/widgets/c_scaffold.dart';
-import 'sign_up_bloc.dart';
+import 'package:wiwalk_app/widgets/dialogs/custom_dialog.dart';
+import '../pages/page1_credentials.dart';
+import '../bloc/sign_up_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -34,7 +37,8 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
   // PageView
   final PageController _pageController = PageController();
   int _pageIndex = 0;
-  final _pageMargin = const EdgeInsets.symmetric(horizontal: CSize.spacing24);
+  final _pageMargin = const EdgeInsets.fromLTRB(
+      CSize.spacing24, 60.0, CSize.spacing24, CSize.spacing24);
 
   @override
   Widget build(BuildContext context) {
@@ -55,18 +59,24 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
             },
             visibleAppBar: false,
             bodySafeArea: false,
-            body: Column(
-              children: [
-                /// Indicator
-                _pageViewIndicator(),
+            backgroundColor: Colors.white,
+            body: GestureDetector(
+              onTap: () {
+                Func.hideKeyboard(context);
+              },
+              child: Column(
+                children: [
+                  SizedBox(height: context.mediaQueryPadding.top),
 
-                const SizedBox(height: 60.0),
+                  /// Indicator
+                  _pageViewIndicator(),
 
-                /// Page view
-                Expanded(
-                  child: _pageView(),
-                ),
-              ],
+                  /// Page view
+                  Expanded(
+                    child: _pageView(),
+                  ),
+                ],
+              ),
             ),
           );
         },
@@ -79,6 +89,14 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
       _goToPrevPage();
     } else if (state is SignUpNextPageState) {
       _goToNextPage();
+    } else if (state is SignUpFailed) {
+      showCustomDialog(
+        context,
+        dialogType: DialogType.error,
+        title: 'Амжилтгүй',
+        text: state.message,
+        button2Text: 'Ok',
+      );
     }
   }
 
@@ -91,30 +109,28 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
   }
 
   Widget _pageViewIndicator() {
-    return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.fromLTRB(
-            CSize.spacing24, CSize.spacing24, CSize.spacing24, 0.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            _indicatorItem(true), // 0
-            const SizedBox(width: 4.0),
-            _indicatorItem(_pageIndex > 0), // 1
-            const SizedBox(width: 4.0),
-            _indicatorItem(_pageIndex > 1), // 2
-            const SizedBox(width: 4.0),
-            _indicatorItem(_pageIndex > 2), // 3
-            const SizedBox(width: 4.0),
-            _indicatorItem(_pageIndex > 3), // 4
-            const SizedBox(width: 4.0),
-            _indicatorItem(_pageIndex > 4), // 5
-            const SizedBox(width: 4.0),
-            _indicatorItem(_pageIndex > 5), // 6
-            const SizedBox(width: 4.0),
-            _indicatorItem(_pageIndex > 6), // 7
-          ],
-        ),
+    return Container(
+      margin: const EdgeInsets.fromLTRB(
+          CSize.spacing24, CSize.spacing24, CSize.spacing24, 0.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          _indicatorItem(true), // 0
+          const SizedBox(width: 4.0),
+          _indicatorItem(_pageIndex > 0), // 1
+          const SizedBox(width: 4.0),
+          _indicatorItem(_pageIndex > 1), // 2
+          const SizedBox(width: 4.0),
+          _indicatorItem(_pageIndex > 2), // 3
+          const SizedBox(width: 4.0),
+          _indicatorItem(_pageIndex > 3), // 4
+          const SizedBox(width: 4.0),
+          _indicatorItem(_pageIndex > 4), // 5
+          const SizedBox(width: 4.0),
+          _indicatorItem(_pageIndex > 5), // 6
+          const SizedBox(width: 4.0),
+          _indicatorItem(_pageIndex > 6), // 7
+        ],
       ),
     );
   }
@@ -149,7 +165,7 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
         Page0Dan(margin: _pageMargin),
 
         /// Нэвтрэх нэр, нууц үг
-        Text('1'),
+        Page1Credentials(margin: _pageMargin),
 
         /// Утасны дугаар, цахим шуудан
         Text('2'),

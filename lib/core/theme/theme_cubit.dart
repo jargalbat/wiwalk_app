@@ -93,7 +93,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
 
     /// Background
     // backgroundColor: _backgroundLight, // deprecated covertted into ColorScheme
-    scaffoldBackgroundColor: _backgroundLight,
+    scaffoldBackgroundColor: _primaryBgLight,
 
     ///Bottom app bar color
     // bottomAppBarColor: backgroundLight,
@@ -108,7 +108,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
         statusBarBrightness: Brightness.light,
         statusBarIconBrightness: Brightness.light,
       ),
-      backgroundColor: _backgroundLight,
+      backgroundColor: _primaryBgLight,
       //Colors.white\
       iconTheme: IconThemeData(
         color: _primary,
@@ -122,8 +122,8 @@ class ThemeCubit extends Cubit<ThemeMode> {
     ),
 
     /// Card
-    cardTheme: const CardTheme(color: _background2Light),
-    cardColor: _background2Light,
+    cardTheme: const CardTheme(color: _secondaryBgLight),
+    cardColor: _secondaryBgLight,
 
     /// TextField
     textSelectionTheme: const TextSelectionThemeData(),
@@ -192,7 +192,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
     ),
     colorScheme: const ColorScheme.light().copyWith(
       error: _red,
-      background: _backgroundLight,
+      background: _primaryBgLight,
       primary: _primary,
     ),
 
@@ -293,7 +293,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
 
     /// Background
     // backgroundColor: _backgroundDark, deprecated converted into ColorScheme
-    scaffoldBackgroundColor: _backgroundDark,
+    scaffoldBackgroundColor: _primaryBgDark,
 
     ///Bottom app bar color
     // bottomAppBarColor: backgroundDark,
@@ -308,7 +308,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
         statusBarBrightness: Brightness.dark,
         statusBarIconBrightness: Brightness.light,
       ),
-      backgroundColor: _backgroundDark,
+      backgroundColor: _primaryBgDark,
       elevation: 0.0,
       titleTextStyle: TextStyle(
         color: Colors.white,
@@ -318,8 +318,8 @@ class ThemeCubit extends Cubit<ThemeMode> {
     ),
 
     /// Card
-    cardTheme: const CardTheme(color: _background2Dark),
-    cardColor: _background2Dark,
+    cardTheme: const CardTheme(color: _secondaryBgDark),
+    cardColor: _secondaryBgDark,
 
     /// TextField
     textSelectionTheme: const TextSelectionThemeData(),
@@ -327,7 +327,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
     // errorColor: _red, deprecated covnverted into ColorScheme
     inputDecorationTheme: const InputDecorationTheme(
       filled: true,
-      fillColor: Color(0xFFF1F4F9),
+      fillColor: _secondaryBgLight,
     ),
 
     /// Buttons
@@ -389,7 +389,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
     ),
     colorScheme: const ColorScheme.dark().copyWith(
       error: _red,
-      background: _backgroundDark,
+      background: _primaryBgDark,
       primary: _primary,
       // secondary: Colors.white,
     ),
@@ -451,10 +451,10 @@ class ThemeCubit extends Cubit<ThemeMode> {
   static const _text3Light = Color(0xFF9E9EA1);
   static const _text3Dark = Color(0xFF9E9EA1);
 
-  static const _backgroundLight = Color(0xFFF5F7FA);
-  static const _backgroundDark = Colors.black;
-  static const _background2Light = Colors.white;
-  static const _background2Dark = _gray40Dark;
+  static const _primaryBgLight = Colors.white;
+  static const _primaryBgDark = Colors.black;
+  static const _secondaryBgLight = Color(0xFFF1F4F9);
+  static const _secondaryBgDark = _gray40Dark;
 
   static final _cardShadow = const Color(0xFF48555C).withOpacity(0.1);
 }

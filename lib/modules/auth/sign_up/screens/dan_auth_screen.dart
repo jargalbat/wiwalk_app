@@ -19,9 +19,9 @@ class _DanAuthScreenState extends State<DanAuthScreen> {
   @override
   Widget build(BuildContext context) {
     return CScaffold(
+      title: 'ДАН',
       body: Column(
         children: [
-          const Text('ДАН webview'),
           PrimaryButton(
             settings: ButtonSettings.large,
             onPressed: () {

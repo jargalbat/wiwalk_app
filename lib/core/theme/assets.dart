@@ -23,8 +23,4 @@ class Assets {
 
   // Profile
   static const profile = 'assets/images/profile/profile.svg';
-
-  // Auth
-  static const user = 'assets/images/auth/user.svg';
-  static const password = 'assets/images/auth/password.svg';
 }

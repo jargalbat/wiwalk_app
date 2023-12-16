@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return Stack(
       children: [
         /// Background
-        if (!context.isDarkMode) const ImageBackground(),
+        // if (!context.isDarkMode) const ImageBackground(),
 
         /// Body
         Scaffold(

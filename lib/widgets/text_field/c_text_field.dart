@@ -17,6 +17,7 @@ class CTextField extends StatefulWidget {
     this.margin,
     this.backgroundColor,
     this.borderRadius,
+    this.title,
     this.prefixAsset,
     this.labelText,
     this.keyboardType,
@@ -45,6 +46,7 @@ class CTextField extends StatefulWidget {
   final TextInputType? keyboardType;
   final bool obscureText;
   final List<TextInputFormatter>? inputFormatter;
+  final String? title;
   final String? prefixAsset;
   final String? labelText;
   final double fontSize;
@@ -77,10 +79,24 @@ class _CTextFieldState extends State<CTextField> {
       margin: widget.margin,
       child: Column(
         children: [
+          /// Title
+          if (widget.title != null)
+            Container(
+              margin: const EdgeInsets.only(bottom: CSize.spacing16),
+              alignment: Alignment.centerLeft,
+              child: Text(
+                widget.title ?? '',
+                style: context.textStyles.body14?.copyWith(
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+
           /// Text field
           Container(
             decoration: BoxDecoration(
-              color: context.theme.cardColor,
+              // color: context.theme.cardColor,
+              // color: Colors.red,
               borderRadius: BorderRadius.circular(CSize.spacing8),
               border: Border.all(color: _borderColor),
             ),
@@ -101,7 +117,7 @@ class _CTextFieldState extends State<CTextField> {
                 inputFormatters: widget.inputFormatter,
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.transparent,
+                  // fillColor: Colors.transparent,
                   // Set the background color to transparent.
                   border: InputBorder.none,
                   prefixIcon: _prefixIcon(),

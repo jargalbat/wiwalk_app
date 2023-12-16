@@ -1,12 +1,12 @@
 import 'package:wiwalk_app/data/models/c_request.dart';
 
-class LoginRequest extends CRequest {
+class SignUpRequest extends CRequest {
   String? userName;
   String? passCode;
 
-  LoginRequest({this.userName, this.passCode});
+  SignUpRequest({this.userName, this.passCode});
 
-  LoginRequest.fromJson(Map<String, dynamic> json) {
+  SignUpRequest.fromJson(Map<String, dynamic> json) {
     super.fromJson(json);
     userName = json['UserName'];
     passCode = json['PassCode'];

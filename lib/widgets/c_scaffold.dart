@@ -29,17 +29,20 @@ class CScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool visibleBackgroundAsset =
+        backgroundAsset != null && !context.isDarkMode;
+
     return WillPopScope(
       onWillPop: onWillPop,
       child: Stack(
         children: [
           /// Background
-          if (!context.isDarkMode) ImageBackground(asset: backgroundAsset),
+          if (visibleBackgroundAsset) ImageBackground(asset: backgroundAsset!),
 
           /// Scaffold
           Scaffold(
             key: scaffoldKey,
-            backgroundColor: Colors.transparent,
+            backgroundColor: !visibleBackgroundAsset ? backgroundColor : null,
             appBar:
                 visibleAppBar ? CAppBar(context: context, title: title) : null,
             body: _body(),

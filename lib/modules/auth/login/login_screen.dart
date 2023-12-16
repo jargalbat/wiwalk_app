@@ -148,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
       labelText: 'Нэвтрэх нэр',
       keyboardType: TextInputType.text,
-      prefixAsset: Assets.user,
+      prefixAsset: 'assets/images/auth/user.svg',
       onChanged: (value) {
         // _authBloc.add(
         //   TextChanged(_usernameController.text, 'username'),
@@ -161,7 +161,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return CTextField(
       controller: _passwordController,
       focusNode: _passwordFocus,
-      prefixAsset: Assets.password,
+      prefixAsset: 'assets/images/auth/password.svg',
       labelText: 'Нууц үг',
       obscureText: true,
       onChanged: (value) {
@@ -213,11 +213,11 @@ class _LoginScreenState extends State<LoginScreen> {
         } else if (state is LoginFailed) {
           showCustomDialog(
             context,
-            child: CustomDialogBody(
-              asset: 'assets/images/core/close.svg',
-              title: 'Амжилтгүй',
-              text: state.message,
-            ),
+            dialogType: DialogType.error,
+            // assetColor: Colors.white,
+            text: 'Амжилтгүй',
+            button2Text: 'Ok',
+            onPressedButton2: () async {},
           );
         }
       },
