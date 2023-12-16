@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,16 +10,16 @@ import 'package:wiwalk_app/widgets/dialogs/custom_dialog.dart';
 import 'package:wiwalk_app/widgets/footer/c_footer.dart';
 import 'package:wiwalk_app/widgets/text_field/c_text_field.dart';
 
-class Page1Credentials extends StatefulWidget {
-  const Page1Credentials({super.key, this.margin});
+class Page2VerifyCode extends StatefulWidget {
+  const Page2VerifyCode({super.key, this.margin});
 
   final EdgeInsets? margin;
 
   @override
-  State<Page1Credentials> createState() => _Page1CredentialsState();
+  State<Page2VerifyCode> createState() => _Page2VerifyCodeState();
 }
 
-class _Page1CredentialsState extends State<Page1Credentials> {
+class _Page2VerifyCodeState extends State<Page2VerifyCode> {
   // State
   final _page1Bloc = Page1Bloc();
 
@@ -50,28 +49,6 @@ class _Page1CredentialsState extends State<Page1Credentials> {
 
   // Button
   bool get _enabledNextButton => _isValidUsername && _isValidPassword;
-
-  @override
-  void initState() {
-    super.initState();
-
-    if (kDebugMode) {
-      _usernameController.text = 'jagaauser2@gmail.com';
-      _password1Controller.text = 'Jagaapass';
-      _password2Controller.text = 'Jagaapass';
-
-      _page1Bloc.add(
-        Page1ValidateUsernameEvent(username: _usernameController.text),
-      );
-
-      _page1Bloc.add(
-        Page1ValidatePassEvent(
-          pass1: _password1Controller.text,
-          pass2: _password2Controller.text,
-        ),
-      );
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -156,7 +133,6 @@ class _Page1CredentialsState extends State<Page1Credentials> {
       _isValid4 = state.isValid4;
     } else if (state is Page1ValidateUsernameState) {
       _isValidUsername = state.isValidEmail || state.isValidPhone;
-      _isValidUsername = true;
     }
   }
 
@@ -170,7 +146,10 @@ class _Page1CredentialsState extends State<Page1Credentials> {
       prefixAsset: 'assets/images/auth/user.svg',
       onChanged: (value) {
         _page1Bloc.add(
-          Page1ValidateUsernameEvent(username: _usernameController.text),
+          Page1ValidatePassEvent(
+            pass1: _password1Controller.text,
+            pass2: _password2Controller.text,
+          ),
         );
       },
     );
@@ -247,10 +226,7 @@ class _Page1CredentialsState extends State<Page1Credentials> {
           button2Text: 'Үргэлжлүүлэх',
           onPressedButton2: () {
             if (_enabledNextButton) {
-              final request = SignUpRequest(
-                userName: _usernameController.text,
-                passCode: _password1Controller.text,
-              );
+              final request = SignUpRequest();
               _signUpBloc.add(SignUpCredentialsEvent(request: request));
             } else {
               String warningText = 'Мэдээллээ зөв оруулна уу!';
@@ -270,7 +246,6 @@ class _Page1CredentialsState extends State<Page1Credentials> {
             }
           },
           loadingButton2: state is SignUpLoadingState,
-          button2Width: 180.0,
         );
       },
     );

@@ -28,9 +28,8 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       emit(SignUpLoadingState());
 
       final response = await cClient.sendRequest(
-        httpMethod: HttpMethod.get,
-        path: ApiPaths.auth,
-        requestData: event.request,
+        path: ApiPaths.signUp,
+        requestData: event.request.toJson(),
       );
 
       SignUpResponse signUpResponse = SignUpResponse.fromJson(response.data);

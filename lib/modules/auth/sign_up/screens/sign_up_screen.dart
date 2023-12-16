@@ -89,6 +89,8 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
       _goToPrevPage();
     } else if (state is SignUpNextPageState) {
       _goToNextPage();
+    } else if (state is SignUpSuccess) {
+      _goToNextPage();
     } else if (state is SignUpFailed) {
       showCustomDialog(
         context,

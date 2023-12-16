@@ -14,6 +14,7 @@ class CFooter extends StatelessWidget {
     this.button2Text,
     this.onPressedButton2,
     this.loadingButton2,
+    this.button2Width,
   });
 
   final String? button1Text;
@@ -22,6 +23,7 @@ class CFooter extends StatelessWidget {
   final String? button2Text;
   final VoidCallback? onPressedButton2;
   final bool? loadingButton2;
+  final double? button2Width;
 
   @override
   Widget build(BuildContext context) {
@@ -68,6 +70,7 @@ class CFooter extends StatelessWidget {
                     settings: ButtonSettings.large,
                     text: button2Text,
                     loading: loadingButton2,
+                    width: button2Width,
                   ),
               ],
             ),

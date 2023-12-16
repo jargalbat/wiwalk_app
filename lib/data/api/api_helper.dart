@@ -13,8 +13,8 @@ class ApiHelper {
 
   static String get clientSecret =>
       kDebugMode ? _clientSecretDev : _clientSecretProd;
-  static const String _clientSecretProd = 'Walk1';
-  static const String _clientSecretDev = 'Walk1';
+  static const String _clientSecretProd = 'Walk1!';
+  static const String _clientSecretDev = 'Walk1!';
 
   static Map<String, String> getHttpHeaders({
     AuthType authType = AuthType.bearerToken,

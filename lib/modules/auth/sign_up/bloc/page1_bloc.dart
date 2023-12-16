@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiwalk_app/core/utils/func.dart';
+
 /// ----------------------------------------------------------------------------
 /// BLOC - Global data refresher bloc
 /// ----------------------------------------------------------------------------
@@ -40,30 +41,50 @@ class Page1Bloc extends Bloc<Page1Event, Page1State> {
   }
 
   bool hasMinimumLength(String password) {
-    final regex = RegExp(r"^.{8,}$");
-    return regex.hasMatch(password);
+    try {
+      final regex = RegExp(r"^.{8,}$");
+      return regex.hasMatch(password);
+    } catch (e) {
+      return false;
+    }
   }
 
   bool hasUppercaseLetter(String password) {
-    final regex = RegExp(r".*[A-Z].*");
-    return regex.hasMatch(password);
+    try {
+      final regex = RegExp(r".*[A-Z].*");
+      return regex.hasMatch(password);
+    } catch (e) {
+      return false;
+    }
   }
 
   bool hasLowercaseLetter(String password) {
-    final regex = RegExp(r".*[a-z].*");
-    return regex.hasMatch(password);
+    try {
+      final regex = RegExp(r".*[a-z].*");
+      return regex.hasMatch(password);
+    } catch (e) {
+      return false;
+    }
   }
 
   bool isValidEmail(String email) {
-    final regex = RegExp(
-      r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",
-    );
-    return regex.hasMatch(email);
+    try {
+      final regex = RegExp(
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",
+      );
+      return regex.hasMatch(email);
+    } catch (e) {
+      return false;
+    }
   }
 
   bool isEightDigits(String number) {
-    final regex = RegExp(r"^\d{8}$");
-    return regex.hasMatch(number);
+    try {
+      final regex = RegExp(r"^\d{8}$");
+      return regex.hasMatch(number);
+    } catch (e) {
+      return false;
+    }
   }
 }
 

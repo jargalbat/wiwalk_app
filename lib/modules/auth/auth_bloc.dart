@@ -23,7 +23,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       };
 
       final response = await cClient.sendRequest(
-        httpMethod: HttpMethod.get,
         path: ApiPaths.auth,
         requestData: data,
       );
