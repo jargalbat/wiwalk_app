@@ -4,7 +4,7 @@ import 'package:wiwalk_app/modules/challenge/challenge_screen/map/map_sample.dar
 import 'package:wiwalk_app/modules/challenge/challenge_screen/map/order_tracking/order_tracking_page.dart';
 import 'package:wiwalk_app/modules/challenge/challenge_screen/map/polyline_page.dart';
 import 'package:wiwalk_app/modules/challenge/challenge_screen/pedometer/pedometer_page.dart';
-import 'package:wiwalk_app/modules/home/widgets/challenge_today/challenge_today.dart';
+import 'challenge_today/challenge_today.dart';
 
 class HomeDashboard extends StatefulWidget {
   const HomeDashboard({super.key});

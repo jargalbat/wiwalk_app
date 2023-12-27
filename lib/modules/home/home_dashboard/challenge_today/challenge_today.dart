@@ -8,9 +8,10 @@ import 'package:wiwalk_app/core/router/route_names.dart';
 import 'package:wiwalk_app/core/theme/assets.dart';
 import 'package:wiwalk_app/core/theme/c_size.dart';
 import 'package:wiwalk_app/data/models/group_challenge.dart';
-import 'package:wiwalk_app/modules/home/widgets/challenge_today/challenge_today_bloc.dart';
 import 'package:wiwalk_app/widgets/cards/stroke_card.dart';
 import 'package:wiwalk_app/widgets/text/section_title.dart';
+
+import 'challenge_today_bloc.dart';
 
 class ChallengeToday extends StatelessWidget {
   const ChallengeToday({super.key, this.margin});

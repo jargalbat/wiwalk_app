@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wiwalk_app/core/extensions/context_extensions.dart';
 import 'package:wiwalk_app/core/theme/c_size.dart';
-import 'package:wiwalk_app/modules/home/screens/home_dashboard.dart';
+import 'package:wiwalk_app/modules/home/notification_dashboard/notification_dashboard.dart';
 import 'package:wiwalk_app/widgets/c_scaffold.dart';
-import 'widgets/profile_picture.dart';
+import 'challenge_dashboard/challenge_dashboard.dart';
+import 'home_dashboard/home_dashboard.dart';
+import 'home_dashboard/widgets/profile_picture.dart';
+import 'survey_dashboard/survey_dashboard.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,7 +22,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return CScaffold(
-      appBar: _appBar(),
+      appBar: AppBar(
+        title: _appBarTitle(),
+        backgroundColor: Colors.transparent,
+      ),
       backgroundAsset: 'assets/images/core/background.png',
       body: _body(),
       bottomNavigationBar: _bottomNavigationBar(),
@@ -40,16 +46,66 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Widget _appBarTitle() {
+    switch (_selectedIndex) {
+      /// Home
+      case 0:
+        return Row(
+          children: [
+            const SizedBox(width: CSize.spacing8),
+            const ProfilePicture(),
+            const SizedBox(width: CSize.spacing8),
+            Text(
+              'Hi,',
+              style: context.textStyles.heading16?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        );
+
+      /// Челленж
+      case 1:
+        return _title('Челленж');
+
+      /// Судалгаа
+      case 2:
+        return _title('Судалгаа');
+
+      /// Мэдэгдэл
+      case 3:
+        return _title('Мэдэгдэл');
+
+      default:
+        return Container();
+    }
+  }
+
+  Widget _title(String title) {
+    return Row(
+      children: [
+        const SizedBox(width: CSize.spacing8),
+        Text(
+          title,
+          style: context.textStyles.heading16?.copyWith(
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        const SizedBox(width: CSize.spacing8),
+      ],
+    );
+  }
+
   Widget _body() {
     switch (_selectedIndex) {
       case 0:
         return const HomeDashboard();
       case 1:
-        return Container();
+        return const ChallengeDashboard();
       case 2:
-        return Container();
+        return const SurveyDashboard();
       case 3:
-        return Container();
+        return const NotificationDashboard();
       default:
         return Container();
     }
