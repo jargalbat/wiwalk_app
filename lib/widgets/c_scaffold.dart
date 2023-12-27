@@ -8,49 +8,61 @@ class CScaffold extends StatelessWidget {
     Key? key,
     this.scaffoldKey,
     this.onWillPop,
-    this.visibleAppBar = true,
     this.backgroundAsset,
     this.backgroundColor,
+    this.appBar,
     this.title,
     this.body,
     this.bodySafeArea = true,
     this.floatingActionButton,
+    this.bottomNavigationBar,
   }) : super(key: key);
 
   final GlobalKey<ScaffoldState>? scaffoldKey;
   final WillPopCallback? onWillPop;
-  final bool visibleAppBar;
   final String? backgroundAsset;
   final Color? backgroundColor;
+  final PreferredSizeWidget? appBar;
   final String? title;
   final Widget? body;
   final bool bodySafeArea;
   final Widget? floatingActionButton;
+  final Widget? bottomNavigationBar;
+
+  bool get _visibleBackgroundAsset => backgroundAsset != null;
 
   @override
   Widget build(BuildContext context) {
-    bool visibleBackgroundAsset =
-        backgroundAsset != null && !context.isDarkMode;
-
     return WillPopScope(
       onWillPop: onWillPop,
       child: Stack(
         children: [
           /// Background
-          if (visibleBackgroundAsset) ImageBackground(asset: backgroundAsset!),
+          if (_visibleBackgroundAsset) ImageBackground(asset: backgroundAsset!),
 
           /// Scaffold
           Scaffold(
             key: scaffoldKey,
-            backgroundColor: !visibleBackgroundAsset ? backgroundColor : null,
-            appBar:
-                visibleAppBar ? CAppBar(context: context, title: title) : null,
+            backgroundColor:
+                _visibleBackgroundAsset ? Colors.transparent : backgroundColor,
+            appBar: _appBar(context),
             body: _body(),
             floatingActionButton: floatingActionButton,
+            bottomNavigationBar: bottomNavigationBar,
           ),
         ],
       ),
     );
+  }
+
+  PreferredSizeWidget? _appBar(context) {
+    if (appBar != null) {
+      return appBar;
+    } else if (title != null) {
+      return CAppBar(context: context, title: title);
+    } else {
+      return null;
+    }
   }
 
   Widget _body() {

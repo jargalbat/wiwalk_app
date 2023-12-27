@@ -57,7 +57,7 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
             onWillPop: () async {
               return Future.value(_onPressedBack());
             },
-            visibleAppBar: false,
+            // visibleAppBar: false,
             bodySafeArea: false,
             backgroundColor: Colors.white,
             body: GestureDetector(

@@ -51,6 +51,9 @@ class _LoginScreenState extends State<LoginScreen> {
     if (kDebugMode) {
       _usernameController.text = '95770077';
       _passwordController.text = '1111';
+
+      _usernameController.text = 'jagaauser2@gmail.com';
+      _passwordController.text = 'Jagaapass';
     }
 
     super.initState();
@@ -60,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return CScaffold(
       backgroundColor: Colors.white,
-      visibleAppBar: false,
+      // visibleAppBar: false,
       body: GestureDetector(
         onTap: () {
           Func.hideKeyboard(context);
@@ -210,6 +213,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return BlocListener<AuthBloc, AuthState>(
       listener: (BuildContext context, AuthState state) {
         if (state is LoginSuccess) {
+          context.goNamed(RouteNames.home);
         } else if (state is LoginFailed) {
           showCustomDialog(
             context,
@@ -225,13 +229,18 @@ class _LoginScreenState extends State<LoginScreen> {
         builder: (context, AuthState state) {
           return PrimaryButton(
             onPressed: () {
+              if (state is LoginLoadingState) {
+                return;
+              }
+
+              Func.hideKeyboard(context);
+
               final loginRequest = LoginRequest(
                 userName: _usernameController.text,
                 passCode: _passwordController.text,
               );
 
               _authBloc.add(LoginEvent(request: loginRequest));
-              // context.goNamed(RouteNames.home);
             },
             loading: state is LoginLoadingState,
             settings: ButtonSettings.large,

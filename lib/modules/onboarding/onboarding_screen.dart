@@ -32,7 +32,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       onWillPop: () async {
         return Future.value(_onPressedBack());
       },
-      visibleAppBar: false,
+      // visibleAppBar: false,
       bodySafeArea: false,
       backgroundAsset: Assets.background2,
       body: Stack(

@@ -15,16 +15,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<LoginEvent>((event, emit) async {
       emit(LoginLoadingState());
 
-      var data = {
-        "APIUser": "Walk",
-        "APIKey": "Walk1!",
-        "UserName": "95770077",
-        "PassCode": "1111"
-      };
+      // var data = {
+      //   "APIUser": "Walk",
+      //   "APIKey": "Walk1!",
+      //   "UserName": "95770077",
+      //   "PassCode": "1111"
+      // };
 
       final response = await cClient.sendRequest(
         path: ApiPaths.auth,
-        requestData: data,
+        requestData: event.request.toJson(),
       );
 
       LoginResponse loginResponse = LoginResponse.fromJson(response.data);
