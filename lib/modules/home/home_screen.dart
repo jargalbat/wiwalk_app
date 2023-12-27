@@ -1,18 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wiwalk_app/core/extensions/context_extensions.dart';
-import 'package:wiwalk_app/core/router/custom_router.dart';
-import 'package:wiwalk_app/core/router/route_names.dart';
 import 'package:wiwalk_app/core/theme/c_size.dart';
-import 'package:wiwalk_app/modules/challenge/challenge_screen/pedometer/pedometer_page.dart';
 import 'package:wiwalk_app/modules/home/screens/home_dashboard.dart';
-import 'package:wiwalk_app/widgets/background/image_background.dart';
 import 'package:wiwalk_app/widgets/c_scaffold.dart';
-import '../../core/theme/assets.dart';
-import '../challenge/challenge_screen/map/map_sample.dart';
-import '../challenge/challenge_screen/map/order_tracking/order_tracking_page.dart';
-import '../challenge/challenge_screen/map/polyline_page.dart';
-import 'widgets/challenge_today/challenge_today.dart';
 import 'widgets/profile_picture.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -73,48 +64,55 @@ class _HomeScreenState extends State<HomeScreen> {
           _selectedIndex = index;
         });
       },
-      selectedLabelStyle: context.textStyles.body12?.copyWith(
-        // color: context.colors.text2,
-      ),
-      unselectedLabelStyle: context.textStyles.body12?.copyWith(
-        // color: context.colors.text2,
-      ),
+      selectedLabelStyle: context.textStyles.body12?.copyWith(),
+      unselectedLabelStyle: context.textStyles.body12?.copyWith(),
       items: <BottomNavigationBarItem>[
+        /// Нүүр
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'assets/images/home/${_selectedIndex == 0 ? 'home_active.svg' : 'home.svg'}',
+            _selectedIndex == 0
+                ? 'assets/images/home/home_active.svg'
+                : 'assets/images/home/home.svg',
             height: 34.0,
             fit: BoxFit.fitHeight,
           ),
           label: 'Нүүр',
-          // backgroundColor: Colors.white,
         ),
+
+        /// Челленж
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'assets/images/home/${_selectedIndex == 1 ? 'challenge_active.svg' : 'challenge.svg'}',
+            _selectedIndex == 1
+                ? 'assets/images/home/challenge_active.svg'
+                : 'assets/images/home/challenge.svg',
             height: 34.0,
             fit: BoxFit.fitHeight,
           ),
           label: 'Челленж',
-          // backgroundColor: Colors.white,
         ),
+
+        /// Судалгаа
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'assets/images/home/${_selectedIndex == 2 ? 'survey_active.svg' : 'survey.svg'}',
+            _selectedIndex == 2
+                ? 'assets/images/home/survey_active.svg'
+                : 'assets/images/home/survey.svg',
             height: 34.0,
             fit: BoxFit.fitHeight,
           ),
           label: 'Судалгаа',
-          // backgroundColor: Colors.white,
         ),
+
+        /// Мэдэгдэл
         BottomNavigationBarItem(
           icon: SvgPicture.asset(
-            'assets/images/home/${_selectedIndex == 3 ? 'notification_active.svg' : 'notification.svg'}',
+            _selectedIndex == 3
+                ? 'assets/images/home/notification_active.svg'
+                : 'assets/images/home/notification.svg',
             height: 34.0,
             fit: BoxFit.fitHeight,
           ),
           label: 'Мэдэгдэл',
-          // backgroundColor: Colors.white,
         ),
       ],
     );
