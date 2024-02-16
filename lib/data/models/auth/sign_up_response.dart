@@ -1,20 +1,20 @@
 import 'package:wiwalk_app/data/models/c_response.dart';
 
 class SignUpResponse extends CResponse {
-  String? token;
+  String? userId;
 
-  SignUpResponse({this.token});
+  SignUpResponse({this.userId});
 
   SignUpResponse.fromJson(Map<String, dynamic> json) {
     super.fromJson(json);
-    token = json['Token'];
+    userId = json['UserId'];
   }
 
   @override
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data.addAll(super.toJson());
-    data['Token'] = token;
+    data['UserId'] = userId;
     return data;
   }
 }

@@ -11,16 +11,16 @@ import 'package:wiwalk_app/widgets/dialogs/custom_dialog.dart';
 import 'package:wiwalk_app/widgets/footer/c_footer.dart';
 import 'package:wiwalk_app/widgets/text_field/c_text_field.dart';
 
-class Page1Credentials extends StatefulWidget {
-  const Page1Credentials({super.key, this.margin});
+class Page0Credentials extends StatefulWidget {
+  const Page0Credentials({super.key, this.margin});
 
   final EdgeInsets? margin;
 
   @override
-  State<Page1Credentials> createState() => _Page1CredentialsState();
+  State<Page0Credentials> createState() => _Page0CredentialsState();
 }
 
-class _Page1CredentialsState extends State<Page1Credentials> {
+class _Page0CredentialsState extends State<Page0Credentials> {
   // State
   final _page1Bloc = Page1Bloc();
 
@@ -156,7 +156,7 @@ class _Page1CredentialsState extends State<Page1Credentials> {
       _isValid4 = state.isValid4;
     } else if (state is Page1ValidateUsernameState) {
       _isValidUsername = state.isValidEmail || state.isValidPhone;
-      _isValidUsername = true;
+      // _isValidUsername = true;
     }
   }
 

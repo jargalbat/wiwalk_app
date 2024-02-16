@@ -5,10 +5,10 @@ import 'package:wiwalk_app/core/bloc/refresh_bloc.dart';
 import 'package:wiwalk_app/core/extensions/context_extensions.dart';
 import 'package:wiwalk_app/core/theme/c_size.dart';
 import 'package:wiwalk_app/core/utils/func.dart';
-import 'package:wiwalk_app/modules/auth/sign_up/pages/page0_dan.dart';
+import 'package:wiwalk_app/modules/profile/page0_dan.dart';
 import 'package:wiwalk_app/widgets/c_scaffold.dart';
 import 'package:wiwalk_app/widgets/dialogs/custom_dialog.dart';
-import '../pages/page1_credentials.dart';
+import '../pages/page0_credentials.dart';
 import '../bloc/sign_up_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -163,11 +163,8 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
         // _signUpBloc.add(SignUpChangePageEvent(index: index));
       },
       children: <Widget>[
-        /// ДАН
-        Page0Dan(margin: _pageMargin),
-
         /// Нэвтрэх нэр, нууц үг
-        Page1Credentials(margin: _pageMargin),
+        Page0Credentials(margin: _pageMargin),
 
         /// Утасны дугаар, цахим шуудан
         Text('2'),
