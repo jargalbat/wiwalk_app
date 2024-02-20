@@ -1,29 +1,30 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wiwalk_app/core/extensions/context_extensions.dart';
 import 'package:wiwalk_app/core/theme/c_size.dart';
 import 'package:wiwalk_app/data/models/auth/sign_up_request.dart';
-import 'package:wiwalk_app/modules/auth/sign_up/bloc/page1_bloc.dart';
-import 'package:wiwalk_app/modules/auth/sign_up/bloc/sign_up_bloc.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/page0_credentials/credentials_bloc.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/sign_up/sign_up_screen_bloc.dart';
 import 'package:wiwalk_app/widgets/dialogs/custom_dialog.dart';
 import 'package:wiwalk_app/widgets/footer/c_footer.dart';
 import 'package:wiwalk_app/widgets/text_field/c_text_field.dart';
 
-class Page2VerifyCode extends StatefulWidget {
-  const Page2VerifyCode({super.key, this.margin});
+class CredentialsPage extends StatefulWidget {
+  const CredentialsPage({super.key, this.margin});
 
   final EdgeInsets? margin;
 
   @override
-  State<Page2VerifyCode> createState() => _Page2VerifyCodeState();
+  State<CredentialsPage> createState() => _CredentialsPageState();
 }
 
-class _Page2VerifyCodeState extends State<Page2VerifyCode> {
+class _CredentialsPageState extends State<CredentialsPage> {
   // State
-  final _page1Bloc = Page1Bloc();
+  final _credentialsBloc = CredentialsBloc();
 
-  SignUpBloc get _signUpBloc => context.read<SignUpBloc>();
+  SignUpScreenBloc get _signUpScreenBloc => context.read<SignUpScreenBloc>();
 
   // UI
   final double _screenMinHeight = 500.0;
@@ -51,13 +52,35 @@ class _Page2VerifyCodeState extends State<Page2VerifyCode> {
   bool get _enabledNextButton => _isValidUsername && _isValidPassword;
 
   @override
+  void initState() {
+    super.initState();
+
+    if (kDebugMode) {
+      _usernameController.text = 'jagaauser2@gmail.com';
+      _password1Controller.text = 'Jagaapass';
+      _password2Controller.text = 'Jagaapass';
+
+      _credentialsBloc.add(
+        CredentialsValidateUsernameEvent(username: _usernameController.text),
+      );
+
+      _credentialsBloc.add(
+        CredentialsValidatePassEvent(
+          pass1: _password1Controller.text,
+          pass2: _password2Controller.text,
+        ),
+      );
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
-      value: _page1Bloc,
-      child: BlocListener<Page1Bloc, Page1State>(
+      value: _credentialsBloc,
+      child: BlocListener<CredentialsBloc, CredentialsState>(
         listener: _listener,
-        child: BlocBuilder<Page1Bloc, Page1State>(
-          builder: (BuildContext context, Page1State state) {
+        child: BlocBuilder<CredentialsBloc, CredentialsState>(
+          builder: (BuildContext context, CredentialsState state) {
             return LayoutBuilder(
               builder: (context, constraints) {
                 // Height
@@ -126,13 +149,24 @@ class _Page2VerifyCodeState extends State<Page2VerifyCode> {
   }
 
   void _listener(BuildContext context, state) {
-    if (state is Page1ValidatePassState) {
+    if (state is CredentialsValidatePassState) {
       _isValid1 = state.isValid1;
       _isValid2 = state.isValid2;
       _isValid3 = state.isValid3;
       _isValid4 = state.isValid4;
-    } else if (state is Page1ValidateUsernameState) {
+    } else if (state is CredentialsValidateUsernameState) {
       _isValidUsername = state.isValidEmail || state.isValidPhone;
+    } else if (state is SignUpSuccess) {
+      _signUpScreenBloc.userId = state.response.userId;
+      _signUpScreenBloc.add(SignUpNextPageEvent());
+    } else if (state is SignUpFailed) {
+      showCustomDialog(
+        context,
+        dialogType: DialogType.error,
+        title: 'Амжилтгүй',
+        text: state.message,
+        button2Text: 'Ok',
+      );
     }
   }
 
@@ -145,11 +179,8 @@ class _Page2VerifyCodeState extends State<Page2VerifyCode> {
       keyboardType: TextInputType.text,
       prefixAsset: 'assets/images/auth/user.svg',
       onChanged: (value) {
-        _page1Bloc.add(
-          Page1ValidatePassEvent(
-            pass1: _password1Controller.text,
-            pass2: _password2Controller.text,
-          ),
+        _credentialsBloc.add(
+          CredentialsValidateUsernameEvent(username: _usernameController.text),
         );
       },
     );
@@ -164,8 +195,8 @@ class _Page2VerifyCodeState extends State<Page2VerifyCode> {
       labelText: 'Нууц үг оруулах',
       obscureText: true,
       onChanged: (value) {
-        _page1Bloc.add(
-          Page1ValidatePassEvent(
+        _credentialsBloc.add(
+          CredentialsValidatePassEvent(
             pass1: _password1Controller.text,
             pass2: _password2Controller.text,
           ),
@@ -182,8 +213,8 @@ class _Page2VerifyCodeState extends State<Page2VerifyCode> {
       labelText: 'Нууц үг давтан оруулах',
       obscureText: true,
       onChanged: (value) {
-        _page1Bloc.add(
-          Page1ValidatePassEvent(
+        _credentialsBloc.add(
+          CredentialsValidatePassEvent(
             pass1: _password1Controller.text,
             pass2: _password2Controller.text,
           ),
@@ -216,18 +247,21 @@ class _Page2VerifyCodeState extends State<Page2VerifyCode> {
   }
 
   Widget _footer() {
-    return BlocBuilder<SignUpBloc, SignUpState>(
+    return BlocBuilder<SignUpScreenBloc, SignUpScreenState>(
       builder: (context, state) {
         return CFooter(
           button1Text: 'Буцах',
           onPressedButton1: () {
-            _signUpBloc.add(SignUpPrevPageEvent());
+            _signUpScreenBloc.add(SignUpPrevPageEvent());
           },
           button2Text: 'Үргэлжлүүлэх',
           onPressedButton2: () {
             if (_enabledNextButton) {
-              final request = SignUpRequest();
-              _signUpBloc.add(SignUpCredentialsEvent(request: request));
+              final request = SignUpRequest(
+                userName: _usernameController.text,
+                passCode: _password1Controller.text,
+              );
+              _credentialsBloc.add(SignUpEvent(request: request));
             } else {
               String warningText = 'Мэдээллээ зөв оруулна уу!';
 
@@ -245,7 +279,8 @@ class _Page2VerifyCodeState extends State<Page2VerifyCode> {
               );
             }
           },
-          loadingButton2: state is SignUpLoadingState,
+          loadingButton2: state is CredentialsLoadingState,
+          button2Width: 180.0,
         );
       },
     );

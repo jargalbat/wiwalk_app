@@ -134,7 +134,16 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const Spacer(),
                 ],
-              )
+              ),
+
+              const SizedBox(height: CSize.spacing20),
+              // Sign up
+              // Credential
+              // Mobile, email
+              // Mobile confirm, email confirm
+              //   (Age, gender) edu, height, weight
+              // Contract
+              // Success
             ],
           ),
         ),
@@ -238,6 +247,8 @@ class _LoginScreenState extends State<LoginScreen> {
               final loginRequest = LoginRequest(
                 userName: _usernameController.text,
                 passCode: _passwordController.text,
+                deviceId: 'test',
+                biometricStatus: false,
               );
 
               _authBloc.add(LoginEvent(request: loginRequest));

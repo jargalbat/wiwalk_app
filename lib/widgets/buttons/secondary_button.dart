@@ -92,9 +92,7 @@ class SecondaryButton extends StatelessWidget {
           child: SizedBox(
             height: 20.0,
             width: 20.0,
-            child: CircularProgressIndicator(
-              color: Colors.white,
-            ),
+            child: CircularProgressIndicator(),
           ),
         );
       }

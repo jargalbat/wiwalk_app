@@ -47,7 +47,7 @@ Future<void> showCustomDialog(
                     color: context.theme.cardColor,
                   ),
                   padding: const EdgeInsets.only(
-                      top: CSize.spacing12,
+                      top: CSize.spacing28,
                       left: CSize.spacing24,
                       right: CSize.spacing24,
                       bottom: CSize.spacing28),
@@ -60,6 +60,8 @@ Future<void> showCustomDialog(
                         asset ?? dialogAsset(dialogType),
                         color: assetColor ?? dialogColor(dialogType),
                       ),
+
+                      const SizedBox(height: CSize.spacing10),
 
                       /// Title
                       if (title != null)

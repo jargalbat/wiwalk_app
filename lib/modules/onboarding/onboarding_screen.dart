@@ -4,6 +4,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:wiwalk_app/core/extensions/context_extensions.dart';
 import 'package:wiwalk_app/core/router/route_names.dart';
 import 'package:wiwalk_app/core/theme/assets.dart';
+import 'package:wiwalk_app/core/theme/c_size.dart';
 import 'package:wiwalk_app/widgets/buttons/button_settings.dart';
 import 'package:wiwalk_app/widgets/buttons/c_text_button.dart';
 import 'package:wiwalk_app/widgets/buttons/primary_button.dart';
@@ -86,7 +87,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
 
-              SizedBox(height: MediaQuery.of(context).padding.bottom),
+              /// Padding
+              SizedBox(height: context.bottomPadding()),
             ],
           ),
         ],

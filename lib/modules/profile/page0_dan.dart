@@ -2,7 +2,7 @@
 // import 'package:flutter_bloc/flutter_bloc.dart';
 // import 'package:go_router/go_router.dart';
 // import 'package:wiwalk_app/core/router/route_names.dart';
-// import 'package:wiwalk_app/modules/auth/sign_up/bloc/sign_up_bloc.dart';
+// import 'package:wiwalk_app/modules/auth/sign_up/bloc/sign_up_screen_bloc.dart';
 // import 'package:wiwalk_app/widgets/footer/c_footer.dart';
 //
 // class Page0Dan extends StatefulWidget {

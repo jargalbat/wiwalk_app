@@ -1,4 +1,7 @@
 // UI const
+import 'package:flutter/cupertino.dart';
+import 'package:wiwalk_app/core/extensions/context_extensions.dart';
+
 class CSize {
   // Spacing
   static const spacing4 = 4.0;
@@ -45,6 +48,7 @@ class CSize {
 
   // Custom
   static const double buttonBorderRadius = 10.0;
+
 // static const double cardBorderRadius = buttonBorderRadius;
 // static const double buttonHeight = 48;
 // static const double buttonVerticalPadding = 10;

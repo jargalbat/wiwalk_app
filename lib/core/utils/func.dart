@@ -632,4 +632,51 @@ class Func {
 //
 //     return null;
 //   }
+
+  static bool hasMinimumLength(String password) {
+    try {
+      final regex = RegExp(r"^.{8,}$");
+      return regex.hasMatch(password);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static bool hasUppercaseLetter(String password) {
+    try {
+      final regex = RegExp(r".*[A-Z].*");
+      return regex.hasMatch(password);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static bool hasLowercaseLetter(String password) {
+    try {
+      final regex = RegExp(r".*[a-z].*");
+      return regex.hasMatch(password);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static bool isValidEmail(String email) {
+    try {
+      final regex = RegExp(
+        r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$",
+      );
+      return regex.hasMatch(email);
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static bool isEightDigits(String number) {
+    try {
+      final regex = RegExp(r"^\d{8}$");
+      return regex.hasMatch(number);
+    } catch (e) {
+      return false;
+    }
+  }
 }

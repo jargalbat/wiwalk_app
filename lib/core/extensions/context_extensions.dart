@@ -200,4 +200,12 @@ extension ContextExtensionss on BuildContext {
 
     return columnCount.floor();
   }
+
+  double bottomPadding({double height = 24.0}) {
+    if (Platform.isAndroid) {
+      return mediaQueryPadding.bottom + height;
+    } else {
+      return mediaQueryPadding.bottom;
+    }
+  }
 }

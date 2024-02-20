@@ -23,7 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       // };
 
       final response = await cClient.sendRequest(
-        path: ApiPaths.auth,
+        path: ApiPaths.login,
         requestData: event.request.toJson(),
       );
 

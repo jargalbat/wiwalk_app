@@ -5,11 +5,15 @@ import 'package:wiwalk_app/core/bloc/refresh_bloc.dart';
 import 'package:wiwalk_app/core/extensions/context_extensions.dart';
 import 'package:wiwalk_app/core/theme/c_size.dart';
 import 'package:wiwalk_app/core/utils/func.dart';
-import 'package:wiwalk_app/modules/profile/page0_dan.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/page0_credentials/credentials_page.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/page1_phone/phone_page.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/page2_verify_phone/verify_phone_page.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/page3_email/email_page.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/page4_verify_email/verify_email_page.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/page5_user_info/user_info_page.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/page6_privacy_policy/privacy_policy_page.dart';
 import 'package:wiwalk_app/widgets/c_scaffold.dart';
-import 'package:wiwalk_app/widgets/dialogs/custom_dialog.dart';
-import '../pages/page0_credentials.dart';
-import '../bloc/sign_up_bloc.dart';
+import 'sign_up_screen_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
@@ -17,7 +21,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => SignUpBloc(),
+      create: (context) => SignUpScreenBloc(),
       child: const SignUpScreenBody(),
     );
   }
@@ -32,7 +36,7 @@ class SignUpScreenBody extends StatefulWidget {
 
 class _SignUpScreenBodyState extends State<SignUpScreenBody> {
   // State
-  SignUpBloc get _signUpBloc => context.read<SignUpBloc>();
+  SignUpScreenBloc get _signUpBloc => context.read<SignUpScreenBloc>();
 
   // PageView
   final PageController _pageController = PageController();
@@ -44,15 +48,15 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
-        BlocListener<SignUpBloc, SignUpState>(
+        BlocListener<SignUpScreenBloc, SignUpScreenState>(
           listener: _signUpListener,
         ),
         BlocListener<RefreshBloc, RefreshState>(
           listener: _refreshListener,
         ),
       ],
-      child: BlocBuilder<SignUpBloc, SignUpState>(
-        builder: (BuildContext context, SignUpState state) {
+      child: BlocBuilder<SignUpScreenBloc, SignUpScreenState>(
+        builder: (BuildContext context, SignUpScreenState state) {
           return CScaffold(
             onWillPop: () async {
               return Future.value(_onPressedBack());
@@ -84,30 +88,20 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
     );
   }
 
-  void _signUpListener(BuildContext context, SignUpState state) {
+  void _signUpListener(BuildContext context, SignUpScreenState state) {
     if (state is SignUpPrevPageState) {
       _goToPrevPage();
     } else if (state is SignUpNextPageState) {
       _goToNextPage();
-    } else if (state is SignUpSuccess) {
-      _goToNextPage();
-    } else if (state is SignUpFailed) {
-      showCustomDialog(
-        context,
-        dialogType: DialogType.error,
-        title: 'Амжилтгүй',
-        text: state.message,
-        button2Text: 'Ok',
-      );
     }
   }
 
   void _refreshListener(BuildContext context, RefreshState state) {
-    if (state is DanAuthSuccessState) {
-      // todo
-      print('DanAuthSuccessState');
-      _goToNextPage();
-    }
+    // if (state is DanAuthSuccessState) {
+    //   // todo
+    //   print('DanAuthSuccessState');
+    //   _goToNextPage();
+    // }
   }
 
   Widget _pageViewIndicator() {
@@ -130,8 +124,6 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
           _indicatorItem(_pageIndex > 4), // 5
           const SizedBox(width: 4.0),
           _indicatorItem(_pageIndex > 5), // 6
-          const SizedBox(width: 4.0),
-          _indicatorItem(_pageIndex > 6), // 7
         ],
       ),
     );
@@ -157,32 +149,32 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
       onPageChanged: (index) {
         setState(() {
           _pageIndex = index;
-          print('_pageIndex: $_pageIndex');
+          debugPrint('_pageIndex: $_pageIndex');
         });
 
         // _signUpBloc.add(SignUpChangePageEvent(index: index));
       },
       children: <Widget>[
-        /// Нэвтрэх нэр, нууц үг
-        Page0Credentials(margin: _pageMargin),
+        /// 0. Нэвтрэх нэр, нууц үг
+        CredentialsPage(margin: _pageMargin),
 
-        /// Утасны дугаар, цахим шуудан
-        Text('2'),
+        /// 1. Утасны дугаар оруулах
+        PhonePage(margin: _pageMargin),
 
-        /// Баталгаажуулах
-        Text('3'),
+        /// 2. Утас баталгаажуулах
+        const VerifyPhonePage(),
 
-        /// Гэрийн хаяг
-        Text('4'),
+        /// 3. И-мэйл оруулах
+        const EmailPage(),
 
-        /// Хувийн мэдээлэл
-        Text('5'),
+        /// 4. И-мэйл баталгаажуулах
+        const VerifyEmailPage(),
 
-        /// Гэрээ
-        Text('6'),
+        /// 5. Хувийн мэдээлэл
+        const UserInfoPage(),
 
-        /// Амжилттай
-        Text('7'),
+        /// 6. Үйлчилгээний нөхцөл
+        const PrivacyPolicyPage(),
       ],
     );
   }

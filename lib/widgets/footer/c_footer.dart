@@ -77,7 +77,7 @@ class CFooter extends StatelessWidget {
           ),
 
           /// Padding
-          SizedBox(height: context.mediaQueryPadding.bottom),
+          SizedBox(height: context.bottomPadding(height: CSize.spacing20)),
         ],
       ),
     );

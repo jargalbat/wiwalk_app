@@ -32,52 +32,52 @@ class _HomeDashboardState extends State<HomeDashboard> {
 
             const SizedBox(height: 20.0),
 
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const PedometerPage(),
-                  ),
-                );
-              },
-              child: const Text('Pedometer page'),
-            ),
-
-            const SizedBox(height: 20.0),
-
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const MapSample(),
-                  ),
-                );
-              },
-              child: const Text('Map page'),
-            ),
-
-            const SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const OrderTrackingPage(),
-                  ),
-                );
-              },
-              child: const Text('Order tracking page'),
-            ),
-            const SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (_) => const PolylinePage(),
-                  ),
-                );
-              },
-              child: const Text('Polyline map page'),
-            ),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute<void>(
+            //         builder: (_) => const PedometerPage(),
+            //       ),
+            //     );
+            //   },
+            //   child: const Text('Pedometer page'),
+            // ),
+            //
+            // const SizedBox(height: 20.0),
+            //
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute<void>(
+            //         builder: (_) => const MapSample(),
+            //       ),
+            //     );
+            //   },
+            //   child: const Text('Map page'),
+            // ),
+            //
+            // const SizedBox(height: 20.0),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute<void>(
+            //         builder: (_) => const OrderTrackingPage(),
+            //       ),
+            //     );
+            //   },
+            //   child: const Text('Order tracking page'),
+            // ),
+            // const SizedBox(height: 20.0),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute<void>(
+            //         builder: (_) => const PolylinePage(),
+            //       ),
+            //     );
+            //   },
+            //   child: const Text('Polyline map page'),
+            // ),
 
             // const SizedBox(width: 10.0),
           ],

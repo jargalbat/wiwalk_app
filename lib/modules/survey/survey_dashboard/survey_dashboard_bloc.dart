@@ -24,7 +24,7 @@ class SurveyDashboardBloc
       // };
 
       final response = await cClient.sendRequest(
-        path: ApiPaths.auth,
+        path: ApiPaths.login,
         requestData: event.request.toJson(),
       );
 

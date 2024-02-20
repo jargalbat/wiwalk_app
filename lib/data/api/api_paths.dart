@@ -1,6 +1,7 @@
 part of 'c_client.dart';
 
 class ApiPaths {
-  static const auth = '/apiv1/auth/signin';
+  static const login = '/apiv1/auth/signin';
   static const signUp = '/apiv1/auth/signup';
+  static const phoneReg = '/apiv1/auth/phoneReg';
 }
