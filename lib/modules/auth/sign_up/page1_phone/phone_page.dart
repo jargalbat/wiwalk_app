@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiwalk_app/data/models/auth/phone_code_request.dart';
-import 'package:wiwalk_app/modules/auth/sign_up/sign_up/sign_up_screen_bloc.dart';
+import 'package:wiwalk_app/modules/auth/sign_up/sign_up_screen_bloc.dart';
 import 'package:wiwalk_app/widgets/dialogs/custom_dialog.dart';
 import 'package:wiwalk_app/widgets/footer/c_footer.dart';
 import 'package:wiwalk_app/widgets/text_field/c_text_field.dart';
