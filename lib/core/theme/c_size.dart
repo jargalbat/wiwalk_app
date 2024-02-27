@@ -16,7 +16,7 @@ class CSize {
   static const spacing100 = 100.0;
 
   // Box decoration
-
+  static const inputBorderRadius8 = 8.0;
   static const cardBorderRadius8 = 8.0;
 
   // static const cardBorderRadius10 = 10.0;

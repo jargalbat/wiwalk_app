@@ -97,7 +97,7 @@ class _CTextFieldState extends State<CTextField> {
             decoration: BoxDecoration(
               // color: context.theme.cardColor,
               // color: Colors.red,
-              borderRadius: BorderRadius.circular(CSize.spacing8),
+              borderRadius: BorderRadius.circular(CSize.inputBorderRadius8),
               border: Border.all(color: _borderColor),
             ),
             child: Focus(

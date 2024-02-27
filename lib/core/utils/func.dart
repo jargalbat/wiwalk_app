@@ -679,4 +679,13 @@ class Func {
       return false;
     }
   }
+
+  static bool isFourDigits(String number) {
+    try {
+      final regex = RegExp(r"^\d{4}$");
+      return regex.hasMatch(number);
+    } catch (e) {
+      return false;
+    }
+  }
 }
