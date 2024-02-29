@@ -4,7 +4,7 @@ import 'package:wiwalk_app/core/extensions/context_extensions.dart';
 import 'package:wiwalk_app/core/theme/c_size.dart';
 
 class CodeInputWidget extends StatelessWidget {
-  final double inputWidth;
+  final double width;
   final TextEditingController controller;
   final int length;
   final void Function(String)? onCompleted;
@@ -15,8 +15,8 @@ class CodeInputWidget extends StatelessWidget {
 
   const CodeInputWidget({
     super.key,
-    required this.inputWidth,
     required this.controller,
+    this.width = 56.0,
     required this.length,
     required this.onChanged,
     this.onCompleted,
@@ -26,11 +26,8 @@ class CodeInputWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: CSize.spacing10,
-        horizontal: CSize.spacing20,
-      ),
+    return SizedBox(
+      width: length * (width + 8.0),
       child: PinCodeTextField(
         controller: controller,
         focusNode: focusNode,
@@ -39,6 +36,8 @@ class CodeInputWidget extends StatelessWidget {
           color: context.colors.text,
           fontWeight: FontWeight.bold,
         ),
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        scrollPadding: EdgeInsets.zero,
         length: length,
         enableActiveFill: true,
         blinkWhenObscuring: true,
@@ -47,11 +46,17 @@ class CodeInputWidget extends StatelessWidget {
         pinTheme: PinTheme(
           shape: PinCodeFieldShape.box,
           borderRadius: BorderRadius.circular(CSize.inputBorderRadius8),
-          fieldHeight: inputWidth,
-          fieldWidth: inputWidth,
-          activeColor: Theme.of(context).dividerColor,
-          inactiveColor: Theme.of(context).dividerColor,
-          selectedColor: Theme.of(context).primaryColor,
+          fieldHeight: width,
+          fieldWidth: width,
+          borderWidth: 0.0,
+          activeBorderWidth: 0.0,
+          selectedBorderWidth: 0.0,
+          inactiveBorderWidth: 0.0,
+          disabledBorderWidth: 0.0,
+          errorBorderWidth: 0.0,
+          activeColor: Theme.of(context).cardColor,
+          inactiveColor: Theme.of(context).cardColor,
+          selectedColor: Theme.of(context).cardColor,
           activeFillColor: Theme.of(context).cardColor,
           selectedFillColor: Theme.of(context).cardColor,
           inactiveFillColor: Theme.of(context).cardColor,

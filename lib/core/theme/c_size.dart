@@ -46,11 +46,11 @@ class CSize {
   // Card
   static const servicesGridRatio = 10 / 5;
 
-  // Custom
-  static const double buttonBorderRadius = 10.0;
+  // Button
+  static const buttonHeight = 52.0;
+  static const buttonBorderRadius8 = 8.0;
 
 // static const double cardBorderRadius = buttonBorderRadius;
-// static const double buttonHeight = 48;
 // static const double buttonVerticalPadding = 10;
 // static const double buttonHorizontalPadding = 15;
 // static const double socialButtonSize = 37.0;

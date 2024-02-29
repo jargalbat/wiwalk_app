@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 @immutable
 class CColors extends ThemeExtension<CColors> {
   const CColors({
+    required this.primaryLight,
     required this.green,
     required this.red,
     required this.orange,
@@ -36,6 +37,11 @@ class CColors extends ThemeExtension<CColors> {
     required this.tint,
     required this.imageBorder,
   });
+
+  /// --------------------------------------------------------------------------
+  /// Main colors
+  /// --------------------------------------------------------------------------
+  final Color? primaryLight;
 
   /// --------------------------------------------------------------------------
   /// System colors
@@ -125,7 +131,7 @@ class CColors extends ThemeExtension<CColors> {
 
   @override
   CColors copyWith({
-    Color? brand,
+    Color? primaryLight,
     Color? green,
     Color? red,
     Color? orange,
@@ -156,6 +162,7 @@ class CColors extends ThemeExtension<CColors> {
     Color? imageBorder,
   }) {
     return CColors(
+      primaryLight: primaryLight ?? this.primaryLight,
       green: green ?? this.green,
       red: red ?? this.red,
       orange: orange ?? this.orange,
@@ -192,6 +199,7 @@ class CColors extends ThemeExtension<CColors> {
       return this;
     }
     return CColors(
+      primaryLight: Color.lerp(primaryLight, other.primaryLight, t),
       green: Color.lerp(green, other.green, t),
       red: Color.lerp(red, other.red, t),
       orange: Color.lerp(orange, other.orange, t),
@@ -226,6 +234,7 @@ class CColors extends ThemeExtension<CColors> {
   @override
   String toString() => '''
     MyColors(
+      primaryLight: $primaryLight,
       green: $green,
       red: $red,
       orange: $orange,

@@ -99,7 +99,19 @@ class _PhonePageState extends State<PhonePage> {
     if (state is ValidatePhoneState) {
       _isValidPhone = state.isValidPhone;
     } else if (state is GetPhoneCodeSuccess) {
-      _signUpScreenBloc.add(SignUpNextPageEvent());
+      _signUpScreenBloc.phone = state.phone;
+
+      // todo jagaa
+      showCustomDialog(
+        context,
+        dialogType: DialogType.success,
+        title: 'Тест код',
+        text: state.response.code,
+        button2Text: 'Ok',
+        onPressedButton2: () {
+          _signUpScreenBloc.add(SignUpNextPageEvent());
+        },
+      );
     } else if (state is GetPhoneCodeFailed) {
       showCustomDialog(
         context,
@@ -117,8 +129,8 @@ class _PhonePageState extends State<PhonePage> {
       focusNode: _phoneFocus,
       title: 'Утасны дугаар',
       labelText: 'Баталгаажуулах код авах дугаар',
-      keyboardType: TextInputType.text,
-      prefixAsset: 'assets/images/auth/user.svg',
+      keyboardType: TextInputType.number,
+      prefixAsset: 'assets/images/auth/phone.svg',
       onChanged: (value) {
         _phoneBloc.add(ValidatePhoneEvent(phone: _phoneController.text));
       },
@@ -135,7 +147,7 @@ class _PhonePageState extends State<PhonePage> {
       onPressedButton2: () {
         String? errorMessage;
         if (!_isValidPhone) {
-          errorMessage = 'Утасны дугаараа зөв оруулна уу!';
+          errorMessage = 'Утасны дугаараа зөв оруулна уу.';
         } else if (_signUpScreenBloc.userId == null) {
           errorMessage =
               'Утасны дугаар холбох хэрэглэгчийн мэдээлэл олдсонгүй. Дахин бүртгүүлнэ үү!';
@@ -158,7 +170,7 @@ class _PhonePageState extends State<PhonePage> {
 
         _phoneBloc.add(GetPhoneCodeEvent(request: request));
       },
-      loadingButton2: state is PhoneButtonLoadingState,
+      loadingButton2: state is PhoneLoadingState,
       button2Width: 180.0,
     );
   }

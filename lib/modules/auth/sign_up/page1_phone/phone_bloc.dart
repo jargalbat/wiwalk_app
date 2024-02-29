@@ -20,7 +20,7 @@ class PhoneBloc extends Bloc<PhoneEvent, PhoneState> {
     });
 
     on<GetPhoneCodeEvent>((event, emit) async {
-      emit(PhoneButtonLoadingState());
+      emit(PhoneLoadingState());
 
       // if (kDebugMode) {
       //   emit(GetPhoneCodeSuccess(response: PhoneCodeResponse()));
@@ -35,7 +35,12 @@ class PhoneBloc extends Bloc<PhoneEvent, PhoneState> {
       PhoneCodeResponse phoneResponse =
           PhoneCodeResponse.fromJson(response.data);
       if (phoneResponse.retType == 0) {
-        emit(GetPhoneCodeSuccess(response: phoneResponse));
+        emit(
+          GetPhoneCodeSuccess(
+            response: phoneResponse,
+            phone: event.request.phone,
+          ),
+        );
       } else {
         emit(
           GetPhoneCodeFailed(
@@ -87,7 +92,7 @@ abstract class PhoneState extends Equatable {
 
 class PhoneRefresh extends PhoneState {}
 
-class PhoneButtonLoadingState extends PhoneState {}
+class PhoneLoadingState extends PhoneState {}
 
 class ValidatePhoneState extends PhoneState {
   final bool isValidPhone;
@@ -102,11 +107,15 @@ class ValidatePhoneState extends PhoneState {
 
 class GetPhoneCodeSuccess extends PhoneState {
   final PhoneCodeResponse response;
+  final String? phone;
 
-  const GetPhoneCodeSuccess({required this.response});
+  const GetPhoneCodeSuccess({
+    required this.response,
+    this.phone,
+  });
 
   @override
-  List<Object> get props => [response];
+  List<Object> get props => [response, phone ?? ''];
 }
 
 class GetPhoneCodeFailed extends PhoneState {

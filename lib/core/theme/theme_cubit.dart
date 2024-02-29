@@ -21,6 +21,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
   static final lightTheme = ThemeData(
     extensions: <ThemeExtension<dynamic>>[
       CColors(
+        primaryLight: const Color(0xFFE2F5FA),
         green: const Color(0xFF34C750),
         red: _red,
         // red: const Color(0xFFff3b30),
@@ -144,7 +145,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
         backgroundColor: _primary,
         // primary: gray100Light.withOpacity(0.5),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(CSize.buttonBorderRadius),
+          borderRadius: BorderRadius.circular(CSize.buttonBorderRadius8),
         ),
         elevation: 0.0,
       ),
@@ -158,7 +159,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
         elevation: 0.0,
         // primary: backgroundColor ?? Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(CSize.buttonBorderRadius),
+          borderRadius: BorderRadius.circular(CSize.buttonBorderRadius8),
         ),
       ),
     ),
@@ -221,6 +222,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
   static final darkTheme = ThemeData(
     extensions: <ThemeExtension<dynamic>>[
       CColors(
+        primaryLight: const Color(0xFFE2F5FA),
         green: const Color(0xFF30D158),
         red: _red,
         // red: const Color(0xFFff3b30),
@@ -342,7 +344,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
         backgroundColor: _primary,
         // primary: gray100Dark.withOpacity(0.5),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(CSize.buttonBorderRadius),
+          borderRadius: BorderRadius.circular(CSize.buttonBorderRadius8),
         ),
         elevation: 0.0,
       ),
@@ -356,7 +358,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
         elevation: 0.0,
         // primary: backgroundColor ?? Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(CSize.buttonBorderRadius),
+          borderRadius: BorderRadius.circular(CSize.buttonBorderRadius8),
         ),
       ),
     ),
@@ -433,7 +435,8 @@ class ThemeCubit extends Cubit<ThemeMode> {
   /// Дурын газар хатуугаар бичиж ашиглахгүй болохыг анхаарна уу!
   /// Өнгөний нэршил: https://chir.ag/projects/name-that-color/
   static const _primary = Color(0xFF1797B2);
-  static const _red = Color(0xFFEC5555);
+
+  static const _red = Color(0xFFFF555D);
 
   static const _gray40Light = Color(0xFFf2f2f7);
   static const _gray40Dark = Color(0xFF1c1c1e);

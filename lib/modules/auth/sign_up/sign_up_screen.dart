@@ -162,13 +162,13 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
         PhonePage(margin: _pageMargin),
 
         /// 2. Утас баталгаажуулах
-        const VerifyPhonePage(),
+        VerifyPhonePage(margin: _pageMargin),
 
         /// 3. И-мэйл оруулах
-        const EmailPage(),
+        EmailPage(margin: _pageMargin),
 
         /// 4. И-мэйл баталгаажуулах
-        const VerifyEmailPage(),
+        VerifyEmailPage(margin: _pageMargin),
 
         /// 5. Хувийн мэдээлэл
         const UserInfoPage(),

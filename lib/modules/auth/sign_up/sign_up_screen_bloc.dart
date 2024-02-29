@@ -6,6 +6,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 /// ----------------------------------------------------------------------------
 class SignUpScreenBloc extends Bloc<SignUpScreenEvent, SignUpScreenState> {
   String? userId;
+  String? phone;
+  String? email;
 
   SignUpScreenBloc() : super(SignUpScreenRefresh()) {
     on<SignUpPrevPageEvent>((event, emit) async {

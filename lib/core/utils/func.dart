@@ -680,12 +680,41 @@ class Func {
     }
   }
 
-  static bool isFourDigits(String number) {
+  static bool isValidDigits(String number, int length) {
     try {
-      final regex = RegExp(r"^\d{4}$");
+      final regex = RegExp(r'^\d{' + length.toString() + r'}$');
       return regex.hasMatch(number);
     } catch (e) {
       return false;
+    }
+  }
+
+  static String maskPhoneNumber(String? phoneNumber) {
+    if (phoneNumber?.length == 8) {
+      return '${phoneNumber!.substring(0, 4)}****';
+    } else {
+      return phoneNumber ?? '';
+    }
+  }
+
+  static String maskEmail(String? email) {
+    if (email == null || !email.contains('@')) {
+      return email ?? '';
+    }
+    var parts = email.split('@');
+    var username = parts[0];
+    var domain = parts[1];
+
+    // Check if the username part is longer than 3 characters
+    if (username.length > 3) {
+      var visiblePart =
+          username.substring(0, 3); // Keep the first 3 characters visible
+      var maskedPart = '*' * (username.length - 3); // Mask the rest
+      return '$visiblePart$maskedPart@$domain';
+    } else {
+      // If the username is 3 characters or less, mask the entire username
+      var maskedUsername = '*' * username.length;
+      return '$maskedUsername@$domain';
     }
   }
 }

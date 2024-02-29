@@ -2,42 +2,37 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiwalk_app/core/utils/func.dart';
 import 'package:wiwalk_app/data/api/c_client.dart';
-import 'package:wiwalk_app/data/models/auth/verify_phone_request.dart';
+import 'package:wiwalk_app/data/models/auth/verify_email_request.dart';
 import 'package:wiwalk_app/data/models/c_response.dart';
 
 /// ----------------------------------------------------------------------------
 /// BLOC
 /// ----------------------------------------------------------------------------
-class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
-  VerifyPhoneBloc() : super(VerifyPhoneRefresh()) {
-    on<ValidatePhoneCodeEvent>((event, emit) async {
+class VerifyEmailBloc extends Bloc<VerifyEmailEvent, VerifyEmailState> {
+  VerifyEmailBloc() : super(VerifyEmailRefresh()) {
+    on<ValidateEmailCodeEvent>((event, emit) async {
       // todo jagaa 4
       bool isValidCode = Func.isValidDigits(event.code ?? '', 5);
 
-      emit(ValidatePhoneCodeState(isValidCode: isValidCode));
+      emit(ValidateEmailCodeState(isValidCode: isValidCode));
 
-      emit(VerifyPhoneRefresh());
+      emit(VerifyEmailRefresh());
     });
 
-    on<VerifyPhone>((event, emit) async {
-      emit(VerifyPhoneLoadingState());
-
-      // if (kDebugMode) {
-      //   emit(GetPhoneCodeSuccess(response: PhoneCodeResponse()));
-      //   return;
-      // }
+    on<VerifyEmail>((event, emit) async {
+      emit(VerifyEmailLoadingState());
 
       final response = await cClient.sendRequest(
-        path: ApiPaths.phoneConfirm,
+        path: ApiPaths.emailConfirm,
         requestData: event.request.toJson(),
       );
 
       CResponse cResponse = CResponse.fromJson(response.data);
       if (cResponse.retType == 0) {
-        emit(VerifyPhoneSuccess(response: cResponse));
+        emit(VerifyEmailSuccess(response: cResponse));
       } else {
         emit(
-          VerifyPhoneFailed(message: cResponse.retDesc ?? 'Амжилтгүй'),
+          VerifyEmailFailed(message: cResponse.retDesc ?? 'Амжилтгүй'),
         );
       }
     });
@@ -47,26 +42,26 @@ class VerifyPhoneBloc extends Bloc<VerifyPhoneEvent, VerifyPhoneState> {
 /// ----------------------------------------------------------------------------
 /// BLOC EVENTS
 /// ----------------------------------------------------------------------------
-abstract class VerifyPhoneEvent extends Equatable {
-  const VerifyPhoneEvent();
+abstract class VerifyEmailEvent extends Equatable {
+  const VerifyEmailEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class ValidatePhoneCodeEvent extends VerifyPhoneEvent {
+class ValidateEmailCodeEvent extends VerifyEmailEvent {
   final String? code;
 
-  const ValidatePhoneCodeEvent({this.code});
+  const ValidateEmailCodeEvent({this.code});
 
   @override
   List<Object> get props => [code ?? ''];
 }
 
-class VerifyPhone extends VerifyPhoneEvent {
-  final VerifyPhoneRequest request;
+class VerifyEmail extends VerifyEmailEvent {
+  final VerifyEmailRequest request;
 
-  const VerifyPhone({required this.request});
+  const VerifyEmail({required this.request});
 
   @override
   List<Object> get props => [request];
@@ -75,39 +70,39 @@ class VerifyPhone extends VerifyPhoneEvent {
 /// ----------------------------------------------------------------------------
 /// BLOC STATES
 /// ----------------------------------------------------------------------------
-abstract class VerifyPhoneState extends Equatable {
-  const VerifyPhoneState();
+abstract class VerifyEmailState extends Equatable {
+  const VerifyEmailState();
 
   @override
   List<Object> get props => [];
 }
 
-class VerifyPhoneRefresh extends VerifyPhoneState {}
+class VerifyEmailRefresh extends VerifyEmailState {}
 
-class VerifyPhoneLoadingState extends VerifyPhoneState {}
+class VerifyEmailLoadingState extends VerifyEmailState {}
 
-class ValidatePhoneCodeState extends VerifyPhoneState {
+class ValidateEmailCodeState extends VerifyEmailState {
   final bool isValidCode;
 
-  const ValidatePhoneCodeState({required this.isValidCode});
+  const ValidateEmailCodeState({required this.isValidCode});
 
   @override
   List<Object> get props => [isValidCode];
 }
 
-class VerifyPhoneSuccess extends VerifyPhoneState {
+class VerifyEmailSuccess extends VerifyEmailState {
   final CResponse response;
 
-  const VerifyPhoneSuccess({required this.response});
+  const VerifyEmailSuccess({required this.response});
 
   @override
   List<Object> get props => [response];
 }
 
-class VerifyPhoneFailed extends VerifyPhoneState {
+class VerifyEmailFailed extends VerifyEmailState {
   final String message;
 
-  const VerifyPhoneFailed({required this.message});
+  const VerifyEmailFailed({required this.message});
 
   @override
   List<Object> get props => [message];

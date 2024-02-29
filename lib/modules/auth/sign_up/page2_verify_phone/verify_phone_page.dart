@@ -1,14 +1,14 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wiwalk_app/core/theme/c_size.dart';
 import 'package:wiwalk_app/core/utils/func.dart';
-import 'package:wiwalk_app/data/models/auth/phone_code_request.dart';
 import 'package:wiwalk_app/data/models/auth/verify_phone_request.dart';
 import 'package:wiwalk_app/modules/auth/sign_up/sign_up_screen_bloc.dart';
 import 'package:wiwalk_app/widgets/c_code_input.dart';
+import 'package:wiwalk_app/widgets/countdown/countdown_timer.dart';
+import 'package:wiwalk_app/widgets/countdown/timer_bloc.dart';
 import 'package:wiwalk_app/widgets/dialogs/custom_dialog.dart';
 import 'package:wiwalk_app/widgets/footer/c_footer.dart';
-import 'package:wiwalk_app/widgets/text_field/c_text_field.dart';
 import 'verify_phone_bloc.dart';
 
 class VerifyPhonePage extends StatefulWidget {
@@ -23,6 +23,7 @@ class VerifyPhonePage extends StatefulWidget {
 class _VerifyPhonePageState extends State<VerifyPhonePage> {
   // State
   final _verifyPhoneBloc = VerifyPhoneBloc();
+  final _timerBloc = TimerBloc(60);
 
   SignUpScreenBloc get _signUpScreenBloc => context.read<SignUpScreenBloc>();
 
@@ -40,12 +41,27 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
     super.initState();
   }
 
+  // BlocProvider(
+  // create: (context) => TimerBloc(60), // 60 seconds countdown
+  // child: TimerPage(),
+  // ),
+
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: _verifyPhoneBloc,
-      child: BlocListener<VerifyPhoneBloc, VerifyPhoneState>(
-        listener: _listener,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => _verifyPhoneBloc),
+        BlocProvider(create: (_) => _timerBloc..add(TimerStarted())),
+      ],
+      child: MultiBlocListener(
+        listeners: [
+          BlocListener<VerifyPhoneBloc, VerifyPhoneState>(
+            listener: _verifyPhoneListener,
+          ),
+          // BlocListener<TimerBloc, TimerState>(
+          //   listener: _refreshListener,
+          // ),
+        ],
         child: BlocBuilder<VerifyPhoneBloc, VerifyPhoneState>(
           builder: (BuildContext context, VerifyPhoneState state) {
             return LayoutBuilder(
@@ -64,13 +80,25 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
                     height: _screenHeight,
                     child: Column(
                       children: [
-                        /// Text
                         Container(
                           margin: widget.margin,
                           child: Column(
                             children: [
+                              /// Text
+                              Text(
+                                'Таны '
+                                '(+976 ${Func.maskPhoneNumber(_signUpScreenBloc.phone)}) '
+                                'дугаарт илгээсэн баталгаажуулах кодыг оруулна уу.',
+                              ),
+
+                              const SizedBox(height: CSize.spacing24),
+
                               /// Phone
                               _codeInput(),
+
+                              const SizedBox(height: CSize.spacing32),
+
+                              const CountdownTimer(),
                             ],
                           ),
                         ),
@@ -91,7 +119,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
     );
   }
 
-  void _listener(BuildContext context, state) {
+  void _verifyPhoneListener(BuildContext context, state) {
     if (state is ValidatePhoneCodeState) {
       _isValidCode = state.isValidCode;
     } else if (state is VerifyPhoneSuccess) {
@@ -109,35 +137,22 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
 
   Widget _codeInput() {
     return CodeInputWidget(
-      inputWidth: 20.0,
+      width: 56.0,
       controller: _codeController,
       focusNode: _codeFocus,
-      length: 4,
+      length: 5,
       enablePinAutofill: true,
       onChanged: (value) {
-        // if (value.length == 4) {
-        _verifyPhoneBloc
-            .add(ValidatePhoneCodeEvent(code: _codeController.text));
-        // }
-
-        // else {
-        //   final request = VerifyPhoneRequest(
-        //     userId: _signUpScreenBloc.userId,
-        //     code: _codeController.text,
-        //   );
-        //
-        //   _verifyPhoneBloc.add(VerifyPhone(request: request));
-        // }
+        _verifyPhoneBloc.add(
+          ValidatePhoneCodeEvent(
+            code: _codeController.text,
+          ),
+        );
       },
       onCompleted: (v) {
         Func.hideKeyboard(context);
 
-        final request = VerifyPhoneRequest(
-          userId: _signUpScreenBloc.userId,
-          code: _codeController.text,
-        );
-
-        _verifyPhoneBloc.add(VerifyPhone(request: request));
+        _verifyPhone();
       },
     );
   }
@@ -168,15 +183,19 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
           return;
         }
 
-        final request = VerifyPhoneRequest(
-          userId: _signUpScreenBloc.userId,
-          code: _codeController.text,
-        );
-
-        _verifyPhoneBloc.add(VerifyPhone(request: request));
+        _verifyPhone();
       },
       loadingButton2: state is VerifyPhoneLoadingState,
       button2Width: 180.0,
     );
+  }
+
+  void _verifyPhone() {
+    final request = VerifyPhoneRequest(
+      userId: _signUpScreenBloc.userId,
+      code: _codeController.text,
+    );
+
+    _verifyPhoneBloc.add(VerifyPhone(request: request));
   }
 }

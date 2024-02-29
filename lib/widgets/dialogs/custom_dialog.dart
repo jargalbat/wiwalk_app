@@ -21,7 +21,7 @@ Future<void> showCustomDialog(
   Color? button2Color,
   VoidCallback? onPressedButton2,
 }) {
-  double circleHeight = 24.0;
+  double circleHeight = 50.0;
 
   return showDialog<void>(
     context: context,
@@ -46,11 +46,8 @@ Future<void> showCustomDialog(
                     borderRadius: BorderRadius.circular(13.0),
                     color: context.theme.cardColor,
                   ),
-                  padding: const EdgeInsets.only(
-                      top: CSize.spacing28,
-                      left: CSize.spacing24,
-                      right: CSize.spacing24,
-                      bottom: CSize.spacing28),
+                  padding: const EdgeInsets.fromLTRB(
+                      CSize.spacing28, 40.0, CSize.spacing28, CSize.spacing28),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -58,20 +55,22 @@ Future<void> showCustomDialog(
                         height: circleHeight,
                         width: circleHeight,
                         asset ?? dialogAsset(dialogType),
-                        color: assetColor ?? dialogColor(dialogType),
+                        // color: assetColor ?? dialogColor(dialogType),
                       ),
 
-                      const SizedBox(height: CSize.spacing10),
+                      const SizedBox(height: CSize.spacing24),
 
                       /// Title
                       if (title != null)
                         Text(
                           title,
-                          style: context.textStyles.heading16
-                              ?.copyWith(fontWeight: FontWeight.bold),
+                          style: context.textStyles.heading16?.copyWith(
+                            fontWeight: FontWeight.bold,
+                            color: dialogColor(context, dialogType),
+                          ),
                           // TextStyle(
                           //   fontSize: 18.0,
-                          //   color: dialogColor(dialogType),
+                          //   ,
                           // ),
                           textAlign: TextAlign.center,
                         ),
@@ -79,7 +78,7 @@ Future<void> showCustomDialog(
                       /// Text
                       if (text != null)
                         Container(
-                          margin: const EdgeInsets.only(top: CSize.spacing8),
+                          margin: const EdgeInsets.only(top: CSize.spacing16),
                           child: Text(
                             text,
                             style: context.textStyles.body14,
@@ -90,7 +89,7 @@ Future<void> showCustomDialog(
                       /// Custom child
                       if (child != null) child,
 
-                      const SizedBox(height: CSize.spacing16),
+                      const SizedBox(height: 32.0),
 
                       /// Buttons
                       Row(
@@ -105,11 +104,13 @@ Future<void> showCustomDialog(
                                 ),
                                 child: Container(
                                   alignment: Alignment.center,
-                                  height: 30.0,
+                                  height: CSize.buttonHeight,
                                   child: Text(
                                     button1Text,
-                                    style: context.textStyles.body14?.copyWith(
+                                    style:
+                                        context.textStyles.heading16?.copyWith(
                                       color: Colors.white,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                     // style:
                                     //     TextStyle(color: context.colors.text),
@@ -134,11 +135,13 @@ Future<void> showCustomDialog(
                                 ),
                                 child: Container(
                                   alignment: Alignment.center,
-                                  height: 30.0,
+                                  height: CSize.buttonHeight,
                                   child: Text(
                                     button2Text,
-                                    style: context.textStyles.body14?.copyWith(
+                                    style:
+                                        context.textStyles.heading16?.copyWith(
                                       color: Colors.white,
+                                      fontWeight: FontWeight.w500,
                                     ),
                                   ),
                                 ),
@@ -164,22 +167,19 @@ Future<void> showCustomDialog(
   );
 }
 
-Color dialogColor(DialogType? dialogType) {
+Color dialogColor(BuildContext context, DialogType? dialogType) {
   Color? res;
   switch (dialogType) {
-    case DialogType.success:
-      res = Colors.green;
-      break;
     case DialogType.warning:
       res = Colors.orange;
       break;
     case DialogType.error:
-      res = Colors.red;
+      res = context.colors.red!;
       break;
+    case DialogType.success:
     case DialogType.info:
     default:
-      res = Colors.blue;
-      break;
+      res = context.theme.primaryColor;
   }
 
   return res;
@@ -188,12 +188,12 @@ Color dialogColor(DialogType? dialogType) {
 String dialogAsset(DialogType? dialogType) {
   switch (dialogType) {
     case DialogType.success:
-      return 'assets/images/core/close.svg';
+      return 'assets/images/core/success.svg';
     case DialogType.warning:
     case DialogType.error:
-      return 'assets/images/core/close.svg';
+      return 'assets/images/core/error.svg';
     case DialogType.info:
     default:
-      return 'assets/images/core/close.svg';
+      return 'assets/images/core/success.svg';
   }
 }

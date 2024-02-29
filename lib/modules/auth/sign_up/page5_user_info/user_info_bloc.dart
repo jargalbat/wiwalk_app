@@ -9,18 +9,18 @@ import 'package:wiwalk_app/data/models/c_response.dart';
 /// ----------------------------------------------------------------------------
 /// BLOC
 /// ----------------------------------------------------------------------------
-class EmailBloc extends Bloc<EmailEvent, EmailState> {
-  EmailBloc() : super(EmailRefresh()) {
+class UserInfoBloc extends Bloc<UserInfoEvent, UserInfoState> {
+  UserInfoBloc() : super(UserInfoRefresh()) {
     on<ValidateEmailEvent>((event, emit) async {
       bool isValidEmail = Func.isValidEmail(event.email ?? '');
 
       emit(ValidateEmailState(isValidEmail: isValidEmail));
 
-      emit(EmailRefresh());
+      emit(UserInfoRefresh());
     });
 
     on<GetEmailCodeEvent>((event, emit) async {
-      emit(EmailLoadingState());
+      emit(UserInfoLoadingState());
 
       final response = await cClient.sendRequest(
         path: ApiPaths.emailReg,
@@ -44,14 +44,14 @@ class EmailBloc extends Bloc<EmailEvent, EmailState> {
 /// ----------------------------------------------------------------------------
 /// BLOC EVENTS
 /// ----------------------------------------------------------------------------
-abstract class EmailEvent extends Equatable {
-  const EmailEvent();
+abstract class UserInfoEvent extends Equatable {
+  const UserInfoEvent();
 
   @override
   List<Object> get props => [];
 }
 
-class ValidateEmailEvent extends EmailEvent {
+class ValidateEmailEvent extends UserInfoEvent {
   final String? email;
 
   const ValidateEmailEvent({this.email});
@@ -60,7 +60,7 @@ class ValidateEmailEvent extends EmailEvent {
   List<Object> get props => [email ?? ''];
 }
 
-class GetEmailCodeEvent extends EmailEvent {
+class GetEmailCodeEvent extends UserInfoEvent {
   final EmailCodeRequest request;
 
   const GetEmailCodeEvent({required this.request});
@@ -72,18 +72,18 @@ class GetEmailCodeEvent extends EmailEvent {
 /// ----------------------------------------------------------------------------
 /// BLOC STATES
 /// ----------------------------------------------------------------------------
-abstract class EmailState extends Equatable {
-  const EmailState();
+abstract class UserInfoState extends Equatable {
+  const UserInfoState();
 
   @override
   List<Object> get props => [];
 }
 
-class EmailRefresh extends EmailState {}
+class UserInfoRefresh extends UserInfoState {}
 
-class EmailLoadingState extends EmailState {}
+class UserInfoLoadingState extends UserInfoState {}
 
-class ValidateEmailState extends EmailState {
+class ValidateEmailState extends UserInfoState {
   final bool isValidEmail;
 
   const ValidateEmailState({required this.isValidEmail});
@@ -92,7 +92,7 @@ class ValidateEmailState extends EmailState {
   List<Object> get props => [isValidEmail];
 }
 
-class GetEmailCodeSuccess extends EmailState {
+class GetEmailCodeSuccess extends UserInfoState {
   final CResponse response;
   final String? email;
 
@@ -102,7 +102,7 @@ class GetEmailCodeSuccess extends EmailState {
   List<Object> get props => [response, email ?? ''];
 }
 
-class GetEmailCodeFailed extends EmailState {
+class GetEmailCodeFailed extends UserInfoState {
   final String message;
 
   const GetEmailCodeFailed({required this.message});
