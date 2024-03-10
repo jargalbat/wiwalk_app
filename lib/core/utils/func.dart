@@ -4,6 +4,7 @@
 // import 'dart:math';
 // import 'package:flutter/material.dart';
 // import 'package:flutter/services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
@@ -430,14 +431,29 @@ class Func {
 //     }
 //   }
 //
-//   static String toDateTimeStr(DateTime? dateTime, {String? dateFormat}) {
-//     if (dateTime == null) return '';
-//
-//     var res = '';
-//     res = DateFormat(dateFormat ?? 'yyyy-MM-dd').format(dateTime);
-//
-//     return res;
-//   }
+  static String toDateTimeStr(DateTime? dateTime, {String? dateFormat}) {
+    if (dateTime == null) return '';
+
+    var res = '';
+    res = DateFormat(dateFormat ?? 'yyyy-MM-dd').format(dateTime);
+
+    return res;
+  }
+
+  static String dayOfMonth(String? dateStr) {
+    String formattedDay = '';
+    try {
+      if (isNotEmpty(dateStr)) {
+        DateTime dateTime = DateTime.parse(dateStr!);
+        formattedDay = DateFormat('d').format(dateTime);
+      }
+    } catch (e) {
+      if (kDebugMode) print(e);
+    }
+
+    return formattedDay;
+  }
+
 //
 //   static String? primaryHexColorFromUrl(String? url) {
 //     if (url == null || url.isEmpty) return null;

@@ -37,7 +37,7 @@ class CClient {
     _client.options.headers = headers;
     _client.options.baseUrl = url ?? ApiHelper.baseUrl;
     if (authType != AuthType.bearerToken) {
-      _client.options.headers.remove("authorization");
+      _client.options.headers.remove("Authorization");
     }
 
     try {

@@ -29,7 +29,7 @@ class ApiHelper {
 
     String? accessToken = sharedPref.getString(SharedPrefKeys.accessToken);
     if (authType == AuthType.bearerToken && Func.isNotEmpty(accessToken)) {
-      headers.addAll({'authorization': 'Bearer $accessToken'});
+      headers.addAll({'Authorization': '$accessToken'});
     }
 
     return headers;

@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:wiwalk_app/core/utils/shared_pref.dart';
 import 'package:wiwalk_app/data/api/api_helper.dart';
 import 'package:wiwalk_app/data/api/c_client.dart';
 import 'package:wiwalk_app/data/models/auth/login_request.dart';
@@ -28,7 +29,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
 
       LoginResponse loginResponse = LoginResponse.fromJson(response.data);
-      if (loginResponse.retType == 0) {
+      if (loginResponse.retType == 0 && loginResponse.token != null) {
+        await sharedPref.setString(
+          SharedPrefKeys.accessToken,
+          loginResponse.token!,
+        );
+
         emit(LoginSuccess(response: loginResponse));
       } else {
         emit(LoginFailed(message: loginResponse.retDesc ?? 'Амжилтгүй'));

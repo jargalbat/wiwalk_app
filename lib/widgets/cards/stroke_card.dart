@@ -6,29 +6,34 @@ class StrokeCard extends StatelessWidget {
     super.key,
     this.onTap,
     this.child,
+    this.margin,
   });
 
   final VoidCallback? onTap;
   final Widget? child;
+  final EdgeInsets? margin;
 
   @override
   Widget build(BuildContext context) {
     /// Body
     if (child != null) {
-      return InkWell(
-        onTap: onTap,
-        child: Container(
-          padding: const EdgeInsets.fromLTRB(0.0, 5.0, 5.0, 0.0),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(CSize.cardBorderRadius8),
-          ),
+      return Container(
+        margin: margin,
+        child: InkWell(
+          onTap: onTap,
           child: Container(
+            padding: const EdgeInsets.fromLTRB(0.0, 5.0, 5.0, 0.0),
             decoration: BoxDecoration(
-              color: Colors.grey[100],
+              color: Colors.white,
               borderRadius: BorderRadius.circular(CSize.cardBorderRadius8),
             ),
-            child: child!,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.grey[100],
+                borderRadius: BorderRadius.circular(CSize.cardBorderRadius8),
+              ),
+              child: child!,
+            ),
           ),
         ),
       );

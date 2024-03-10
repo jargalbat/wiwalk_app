@@ -1,7 +1,7 @@
 class GroupChallenge {
   String? id;
   int? progress;
-  List<Challenge>? challenges;
+  List<ChallengeOld>? challenges;
 
   GroupChallenge({this.id, this.progress, this.challenges});
 
@@ -9,9 +9,9 @@ class GroupChallenge {
     id = json['id'];
     progress = json['progress'];
     if (json['challenges'] != null) {
-      challenges = <Challenge>[];
+      challenges = <ChallengeOld>[];
       json['challenges'].forEach((v) {
-        challenges!.add(Challenge.fromJson(v));
+        challenges!.add(ChallengeOld.fromJson(v));
       });
     }
   }
@@ -27,7 +27,7 @@ class GroupChallenge {
   }
 }
 
-class Challenge {
+class ChallengeOld {
   String? id;
   String? title;
   String? type;
@@ -36,7 +36,7 @@ class Challenge {
   int? target;
   List<Promotion>? promotions;
 
-  Challenge(
+  ChallengeOld(
       {this.id,
       this.title,
       this.type,
@@ -45,7 +45,7 @@ class Challenge {
       this.target,
       this.promotions});
 
-  Challenge.fromJson(Map<String, dynamic> json) {
+  ChallengeOld.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     type = json['type'];

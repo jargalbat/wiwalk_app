@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:wiwalk_app/widgets/c_scaffold.dart';
 
 class ChallengeScreen extends StatefulWidget {
-  const ChallengeScreen({super.key});
+  const ChallengeScreen({super.key, required this.challengeId});
+
+  final String challengeId;
 
   @override
   State<ChallengeScreen> createState() => _ChallengeScreenState();
@@ -16,7 +18,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            // Text('123'),
+            Text('Challenge id ${widget.challengeId}'),
             // Container(
             //   height: 1000.0,
             //   width: 200.0,
@@ -32,10 +34,7 @@ class _ChallengeScreenState extends State<ChallengeScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             FloatingActionButton(
-              onPressed: () {
-
-              },
-
+              onPressed: () {},
             ),
           ],
         ),

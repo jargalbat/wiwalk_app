@@ -83,16 +83,18 @@ final GoRouter router = GoRouter(
       routes: <RouteBase>[
         GoRoute(
           name: RouteNames.challengeDetail,
-          path: RouteNames.challengeDetail,
+          path:  '${RouteNames.challengeDetail}/:id',
           builder: (BuildContext context, GoRouterState state) {
-            return const ChallengeDetailScreen();
+            final String challengeId = state.pathParameters['id'] ?? '';
+            return ChallengeDetailScreen(challengeId: challengeId);
           },
         ),
         GoRoute(
           name: RouteNames.challenge,
-          path: RouteNames.challenge,
+          path: '${RouteNames.challenge}/:id',
           builder: (BuildContext context, GoRouterState state) {
-            return const ChallengeScreen();
+            final String challengeId = state.pathParameters['id'] ?? '';
+            return ChallengeScreen(challengeId: challengeId);
           },
         ),
         GoRoute(

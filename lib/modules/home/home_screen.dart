@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:wiwalk_app/core/extensions/context_extensions.dart';
 import 'package:wiwalk_app/core/theme/c_size.dart';
+import 'package:wiwalk_app/modules/challenge/challenge_dashboard/challenge_dashboard.dart';
 import 'package:wiwalk_app/modules/home/notification_dashboard/notification_dashboard.dart';
 import 'package:wiwalk_app/modules/survey/survey_dashboard/survey_dashboard.dart';
 import 'package:wiwalk_app/widgets/c_scaffold.dart';
-import 'challenge_dashboard/challenge_dashboard.dart';
 import 'home_dashboard/home_dashboard.dart';
 import 'home_dashboard/widgets/profile_picture.dart';
 

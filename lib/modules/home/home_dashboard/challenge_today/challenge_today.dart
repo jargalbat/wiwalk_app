@@ -203,7 +203,7 @@ class _ChallengeTodayBodyState extends State<ChallengeTodayBody> {
     );
   }
 
-  Widget _challenge(Challenge challenge) {
+  Widget _challenge(ChallengeOld challenge) {
     return StrokeCard(
       onTap: () {
         router.pushNamed(RouteNames.challenge);

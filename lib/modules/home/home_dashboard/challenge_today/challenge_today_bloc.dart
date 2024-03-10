@@ -33,7 +33,7 @@ class ChallengeTodayBloc
       id: "testId",
       progress: 45,
       challenges: [
-        Challenge(
+        ChallengeOld(
           id: "challenge1",
           title: "Алхалт",
           type: "walk",
@@ -41,7 +41,7 @@ class ChallengeTodayBloc
           progress: 0.1,
           target: 5,
         ),
-        Challenge(
+        ChallengeOld(
           id: "challenge2",
           title: "Бичлэг",
           type: "promotion",

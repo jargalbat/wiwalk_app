@@ -37,6 +37,7 @@ class WiwalkApp extends StatelessWidget {
             theme: ThemeCubit.lightTheme,
             darkTheme: ThemeCubit.darkTheme,
             themeMode: themeMode,
+            // builder: ,
             // routerDelegate: router.routerDelegate,
             // routeInformationParser: router.routeInformationParser,
           );

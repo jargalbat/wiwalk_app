@@ -7,4 +7,6 @@ class ApiPaths {
   static const phoneConfirm = '/apiv1/auth/phoneconfirm';
   static const emailReg = '/apiv1/auth/emailReg';
   static const emailConfirm = '/apiv1/auth/emailconfirm';
+  static const challengeList = '/apiv1/challenge/list';
+  static const challengeDetail = '/apiv1/challenge/detail';
 }

@@ -3,30 +3,31 @@ import 'package:wiwalk_app/data/api/api_helper.dart';
 class CRequest {
   CRequest();
 
-  String aPIUser = ApiHelper.clientId;
-  String aPIKey = ApiHelper.clientSecret;
-
-  // BaseRequest.fromJson(Map<String, dynamic> json) {
-    // aPIUser = json['APIUser'];
-    // aPIKey = json['APIKey'];
-  // }
-
-  // BaseRequest.fromJson(Map<String, dynamic> json) {
-  //   fromJson(json);
-  // }
+  final aPIUser = ApiHelper.clientId;
+  final aPIKey = ApiHelper.clientSecret;
+  int? pId;
+  int? pSize;
+  String? secretKey;
+  String? lang;
 
   void fromJson(Map<String, dynamic> json) {
-    // message = json['message'];
-    // data = json['data'];
-    // subscribeLink = json['subscribe_link'];
-    // links = json["links"] == null ? null : Links.fromJson(json["links"]);
-    // meta = json["meta"] == null ? null : Meta.fromJson(json["meta"]);
+    // aPIUser = json['APIUser'];
+    // aPIKey = json['APIKey'];`
+    // pId = json['pId'];
+    // pSize = json['pSize'];
+    // secretKey = json['SecretKey'];
+    // lang = json['Lang'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['APIUser'] = aPIUser;
     data['APIKey'] = aPIKey;
+    data['pId'] = pId;
+    data['pSize'] = pSize;
+    data['SecretKey'] = secretKey;
+    data['Lang'] = lang;
+
     return data;
   }
 }
