@@ -140,7 +140,7 @@ class _VerifyPhonePageState extends State<VerifyPhonePage> {
       width: 56.0,
       controller: _codeController,
       focusNode: _codeFocus,
-      length: 5,
+      length: 4,
       enablePinAutofill: true,
       onChanged: (value) {
         _verifyPhoneBloc.add(

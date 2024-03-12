@@ -134,7 +134,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       width: 56.0,
       controller: _codeController,
       focusNode: _codeFocus,
-      length: 5,
+      length: 5, // todo jagaa
       enablePinAutofill: true,
       onChanged: (value) {
         _verifyEmailBloc

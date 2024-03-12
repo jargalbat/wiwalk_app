@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:wiwalk_app/core/utils/func.dart';
 import 'package:wiwalk_app/data/api/c_client.dart';
@@ -21,6 +22,11 @@ class VerifyEmailBloc extends Bloc<VerifyEmailEvent, VerifyEmailState> {
 
     on<VerifyEmail>((event, emit) async {
       emit(VerifyEmailLoadingState());
+
+      if (kDebugMode) {
+        emit(VerifyEmailSuccess(response: CResponse()));
+        return;
+      }
 
       final response = await cClient.sendRequest(
         path: ApiPaths.emailConfirm,

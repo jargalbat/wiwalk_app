@@ -1,10 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:wiwalk_app/data/models/auth/email_code_request.dart';
+import 'package:wiwalk_app/data/models/dictionary/educations_response.dart';
 import 'package:wiwalk_app/modules/auth/sign_up/page5_user_info/user_info_bloc.dart';
 import 'package:wiwalk_app/modules/auth/sign_up/sign_up_screen_bloc.dart';
 import 'package:wiwalk_app/widgets/dialogs/custom_dialog.dart';
+import 'package:wiwalk_app/widgets/dropdown/c_dropdown_button.dart';
 import 'package:wiwalk_app/widgets/footer/c_footer.dart';
 import 'package:wiwalk_app/widgets/text_field/c_text_field.dart';
 
@@ -27,19 +30,15 @@ class _UserInfoPageState extends State<UserInfoPage> {
   final double _screenMinHeight = 500.0;
   double _screenHeight = 0.0;
 
-  // Phone
-  final TextEditingController _weightController = TextEditingController();
-  final FocusNode _weightFocus = FocusNode();
+  // Data
+  var _educations = <String, String>{};
+  String? _selectedEducation;
 
   @override
   void initState() {
     super.initState();
 
-    if (kDebugMode) {
-      _weightController.text = 'jagaauser2@gmail.com';
-
-      _userInfoBloc.add(ValidateEmailEvent(email: _weightController.text));
-    }
+    _userInfoBloc.add(const GetEducations());
   }
 
   @override
@@ -71,8 +70,8 @@ class _UserInfoPageState extends State<UserInfoPage> {
                           margin: widget.margin,
                           child: Column(
                             children: [
-                              /// Email
-                              _emailTextField(),
+                              /// Education
+                              _education(),
                             ],
                           ),
                         ),
@@ -94,30 +93,46 @@ class _UserInfoPageState extends State<UserInfoPage> {
   }
 
   void _listener(BuildContext context, state) {
-    if (state is GetEmailCodeSuccess) {
-      _signUpScreenBloc.email = state.email;
-      _signUpScreenBloc.add(SignUpNextPageEvent());
-    } else if (state is GetEmailCodeFailed) {
+    if (state is FetchedEducations) {
+      _educations = state.educations;
+      _selectedEducation = _educations.keys.first;
+    } else if (state is FetchEducationsFailed) {
       showCustomDialog(
         context,
         dialogType: DialogType.error,
         title: 'Амжилтгүй',
         text: state.message,
         button2Text: 'Ok',
+        onPressedButton2: () {
+          _signUpScreenBloc.add(SignUpPrevPageEvent());
+        },
       );
     }
+
+    // else if (state is FetchedEducations) {
+    //   _signUpScreenBloc.email = state.email;
+    //   _signUpScreenBloc.add(SignUpNextPageEvent());
+    // } else if (state is FetchEducationsFailed) {
+    //   showCustomDialog(
+    //     context,
+    //     dialogType: DialogType.error,
+    //     title: 'Амжилтгүй',
+    //     text: state.message,
+    //     button2Text: 'Ok',
+    //   );
+    // }
   }
 
-  Widget _emailTextField() {
-    return CTextField(
-      controller: _weightController,
-      focusNode: _weightFocus,
-      title: 'Жин',
-      labelText: 'Жин',
-      keyboardType: TextInputType.number,
-      prefixAsset: 'assets/images/auth/mail.svg',
-      onChanged: (value) {
-        _userInfoBloc.add(ValidateEmailEvent(email: _weightController.text));
+  Widget _education() {
+    if (_educations.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return CDropdownButton(
+      items: _educations,
+      initialKey: _educations.keys.first,
+      onItemChanged: (String key) {
+        _selectedEducation = key;
       },
     );
   }
@@ -130,30 +145,30 @@ class _UserInfoPageState extends State<UserInfoPage> {
       },
       button2Text: 'Үргэлжлүүлэх',
       onPressedButton2: () {
-        String? errorMessage;
-        if (_weightController.text.isEmpty) {
-          errorMessage = 'Жин оруулна уу.';
-        } else if (_signUpScreenBloc.userId == null) {
-          errorMessage =
-              'Хэрэглэгчийн мэдээлэл олдсонгүй. Дахин бүртгүүлнэ үү!';
-        }
-
-        if (errorMessage != null) {
-          showCustomDialog(
-            context,
-            dialogType: DialogType.warning,
-            text: errorMessage,
-            button2Text: 'Ok',
-          );
-          return;
-        }
-
-        final request = EmailCodeRequest(
-          userId: _signUpScreenBloc.userId,
-          email: _weightController.text,
-        );
-
-        _userInfoBloc.add(GetEmailCodeEvent(request: request));
+        // String? errorMessage;
+        // if (_weightController.text.isEmpty) {
+        //   errorMessage = 'Жин оруулна уу.';
+        // } else if (_signUpScreenBloc.userId == null) {
+        //   errorMessage =
+        //       'Хэрэглэгчийн мэдээлэл олдсонгүй. Дахин бүртгүүлнэ үү!';
+        // }
+        //
+        // if (errorMessage != null) {
+        //   showCustomDialog(
+        //     context,
+        //     dialogType: DialogType.warning,
+        //     text: errorMessage,
+        //     button2Text: 'Ok',
+        //   );
+        //   return;
+        // }
+        //
+        // final request = EmailCodeRequest(
+        //   userId: _signUpScreenBloc.userId,
+        //   email: _weightController.text,
+        // );
+        //
+        // _userInfoBloc.add(GetEmailCodeEvent(request: request));
       },
       loadingButton2: state is UserInfoLoadingState,
       button2Width: 180.0,

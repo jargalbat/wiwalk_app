@@ -1,40 +1,39 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:wiwalk_app/core/utils/func.dart';
 import 'package:wiwalk_app/data/api/c_client.dart';
 import 'package:wiwalk_app/data/models/auth/email_code_request.dart';
-import 'package:wiwalk_app/data/models/auth/phone_code_response.dart';
-import 'package:wiwalk_app/data/models/c_response.dart';
+import 'package:wiwalk_app/data/models/c_request.dart';
+import 'package:wiwalk_app/data/models/dictionary/educations_response.dart';
 
 /// ----------------------------------------------------------------------------
 /// BLOC
 /// ----------------------------------------------------------------------------
 class UserInfoBloc extends Bloc<UserInfoEvent, UserInfoState> {
   UserInfoBloc() : super(UserInfoRefresh()) {
-    on<ValidateEmailEvent>((event, emit) async {
-      bool isValidEmail = Func.isValidEmail(event.email ?? '');
-
-      emit(ValidateEmailState(isValidEmail: isValidEmail));
-
-      emit(UserInfoRefresh());
-    });
-
-    on<GetEmailCodeEvent>((event, emit) async {
+    on<GetEducations>((event, emit) async {
       emit(UserInfoLoadingState());
 
       final response = await cClient.sendRequest(
-        path: ApiPaths.emailReg,
-        requestData: event.request.toJson(),
+        path: ApiPaths.educations,
+        requestData: CRequest(),
       );
 
-      CResponse cResponse = CResponse.fromJson(response.data);
-      if (cResponse.retType == 0) {
-        emit(
-          GetEmailCodeSuccess(response: cResponse, email: event.request.email),
-        );
+      var eduResponse = EducationsResponse.fromJson(response.data);
+      Map<String, String> educations = <String, String>{};
+      for (var el in eduResponse.educations ?? []) {
+        if (el.educationId != null && el.education != null) {
+          educations[el.educationId!] = el.education!;
+        }
+      }
+
+      if (eduResponse.retType == 0 && educations.isNotEmpty) {
+        emit(FetchedEducations(educations: educations));
       } else {
         emit(
-          GetEmailCodeFailed(message: cResponse.retDesc ?? 'Амжилтгүй'),
+          FetchEducationsFailed(
+            message: 'Боловсролын жагсаалт олдсонгүй. Дахин бүртгүүлнэ үү! '
+                '${eduResponse.retDesc ?? ''}',
+          ),
         );
       }
     });
@@ -51,10 +50,10 @@ abstract class UserInfoEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ValidateEmailEvent extends UserInfoEvent {
+class GetEducations extends UserInfoEvent {
   final String? email;
 
-  const ValidateEmailEvent({this.email});
+  const GetEducations({this.email});
 
   @override
   List<Object> get props => [email ?? ''];
@@ -83,29 +82,19 @@ class UserInfoRefresh extends UserInfoState {}
 
 class UserInfoLoadingState extends UserInfoState {}
 
-class ValidateEmailState extends UserInfoState {
-  final bool isValidEmail;
+class FetchedEducations extends UserInfoState {
+  final Map<String, String> educations;
 
-  const ValidateEmailState({required this.isValidEmail});
-
-  @override
-  List<Object> get props => [isValidEmail];
-}
-
-class GetEmailCodeSuccess extends UserInfoState {
-  final CResponse response;
-  final String? email;
-
-  const GetEmailCodeSuccess({required this.response, this.email});
+  const FetchedEducations({required this.educations});
 
   @override
-  List<Object> get props => [response, email ?? ''];
+  List<Object> get props => [educations];
 }
 
-class GetEmailCodeFailed extends UserInfoState {
+class FetchEducationsFailed extends UserInfoState {
   final String message;
 
-  const GetEmailCodeFailed({required this.message});
+  const FetchEducationsFailed({required this.message});
 
   @override
   List<Object> get props => [message];
