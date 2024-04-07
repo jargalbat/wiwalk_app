@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:wiwalk_app/core/router/route_names.dart';
 import 'package:wiwalk_app/core/theme/c_size.dart';
 import 'package:wiwalk_app/core/utils/func.dart';
 import 'package:wiwalk_app/data/models/challenge/challenge_detail_request.dart';
@@ -7,6 +9,8 @@ import 'package:wiwalk_app/data/models/challenge/challenge_detail_response.dart'
 import 'package:wiwalk_app/modules/challenge/challenge_dashboard/challenge_item_widget.dart';
 import 'package:wiwalk_app/modules/challenge/challenge_dashboard/filter_button.dart';
 import 'package:wiwalk_app/modules/challenge/challenge_helper.dart';
+import 'package:wiwalk_app/widgets/buttons/button_settings.dart';
+import 'package:wiwalk_app/widgets/buttons/primary_button.dart';
 import 'package:wiwalk_app/widgets/c_scaffold.dart';
 import 'package:wiwalk_app/widgets/dialogs/custom_dialog.dart';
 import 'package:wiwalk_app/widgets/text/section_title.dart';
@@ -123,6 +127,17 @@ class _ChallengeDetailScreenState extends State<ChallengeDetailScreen> {
                           for (var el in _challengeDays) challengeDayWidget(el),
                         ],
                       ),
+                    ),
+
+                    PrimaryButton(
+                      settings: ButtonSettings.medium,
+                      onPressed: () {
+                        context.pushNamed(
+                          RouteNames.challenge,
+                          pathParameters: {'id': widget.challengeId},
+                        );
+                      },
+                      text: 'Оролцох',
                     ),
 
                     const SizedBox(height: CSize.spacing24),

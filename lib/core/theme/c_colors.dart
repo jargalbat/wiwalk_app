@@ -29,7 +29,7 @@ class CColors extends ThemeExtension<CColors> {
     required this.text2,
     required this.text3,
     required this.text4,
-    required this.text5,
+    required this.textWhite,
     required this.icon,
     required this.icon2,
     required this.icon3,
@@ -107,7 +107,7 @@ class CColors extends ThemeExtension<CColors> {
   final Color? text4;
 
   /// Quinary - White
-  final Color? text5;
+  final Color? textWhite;
 
   /// --------------------------------------------------------------------------
   /// Icon
@@ -183,7 +183,7 @@ class CColors extends ThemeExtension<CColors> {
       text2: text2 ?? this.text2,
       text3: text3 ?? this.text3,
       text4: text4 ?? this.text4,
-      text5: text5 ?? this.text5,
+      textWhite: text5 ?? this.textWhite,
       icon: icon ?? this.icon,
       icon2: icon2 ?? this.icon2,
       icon3: icon3 ?? this.icon3,
@@ -220,7 +220,7 @@ class CColors extends ThemeExtension<CColors> {
       text2: Color.lerp(text2, other.text2, t),
       text3: Color.lerp(text3, other.text3, t),
       text4: Color.lerp(text4, other.text4, t),
-      text5: Color.lerp(text5, other.text5, t),
+      textWhite: Color.lerp(textWhite, other.textWhite, t),
       icon: Color.lerp(icon, other.icon, t),
       icon2: Color.lerp(icon2, other.icon2, t),
       icon3: Color.lerp(icon3, other.icon3, t),
@@ -255,7 +255,7 @@ class CColors extends ThemeExtension<CColors> {
       text2: $text2,
       text3: $text3,
       text4: $text4,
-      text5: $text5,
+      textWhite: $textWhite,
       icon: $icon,
       icon2: $icon2,
       icon3: $icon3,

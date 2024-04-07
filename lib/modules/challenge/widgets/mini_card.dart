@@ -1,20 +1,14 @@
 import 'package:flutter/material.dart';
 
 class MiniCard extends StatelessWidget {
-  const MiniCard({super.key});
+  const MiniCard({super.key, this.child});
 
-// final String text1;
+  final Widget? child;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-
-      child:
-      Column(
-        children: [
-
-        ],
-      ),
+      child: child,
     );
   }
 }

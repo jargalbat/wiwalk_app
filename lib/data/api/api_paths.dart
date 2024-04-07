@@ -10,4 +10,5 @@ class ApiPaths {
   static const educations = '/apiv1/auth/geteducations';
   static const challengeList = '/apiv1/challenge/list';
   static const challengeDetail = '/apiv1/challenge/detail';
+  static const challengeSave = '/apiv1/challenge/save';
 }

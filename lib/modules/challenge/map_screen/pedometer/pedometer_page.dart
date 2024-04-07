@@ -112,4 +112,7 @@ class _PedometerPageState extends State<PedometerPage> {
   String formatDate(DateTime d) {
     return d.toString().substring(0, 19);
   }
+
+
+
 }

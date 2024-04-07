@@ -7,5 +7,6 @@ class RouteNames {
   static const String forgotPassword = 'forgot-password';
   static const String challengeDetail = 'challenge-detail';
   static const String challenge = 'challenge';
+  static const String map = 'map';
   static const String profile = 'profile';
 }

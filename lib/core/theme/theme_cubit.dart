@@ -47,7 +47,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
         text2: _text2Light,
         text3: _text3Light,
         text4: const Color(0xFFD8D8D9),
-        text5: Colors.white,
+        textWhite: Colors.white,
         icon: _gray120Light,
         icon2: _gray100Light,
         icon3: Colors.white,
@@ -134,9 +134,9 @@ class ThemeCubit extends Cubit<ThemeMode> {
     /// Floating action button
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       foregroundColor: Colors.white,
-      backgroundColor: _gray100Light.withOpacity(0.5),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      elevation: 0.0,
+      // backgroundColor: _gray100Light.withOpacity(0.5),
+      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+      // elevation: 0.0,
     ),
 
     /// Elevated button
@@ -248,7 +248,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
         text2: _text2Dark,
         text3: _text3Dark,
         text4: const Color(0xFF505055),
-        text5: Colors.black,
+        textWhite: Colors.black,
         icon: _text2Dark,
         icon2: _gray100Dark,
         icon3: Colors.black,
@@ -335,9 +335,9 @@ class ThemeCubit extends Cubit<ThemeMode> {
     /// Buttons
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       foregroundColor: Colors.white,
-      backgroundColor: _gray100Dark.withOpacity(0.5),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-      elevation: 0.0,
+      // backgroundColor: _gray100Dark.withOpacity(0.5),
+      // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
+      // elevation: 0.0,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

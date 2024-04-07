@@ -35,7 +35,6 @@ class ChallengeDetailResponse extends CResponse {
 }
 
 class Challenge {
-  Null? data;
   String? challengeId;
   String? chName;
   String? chType;
@@ -58,8 +57,7 @@ class Challenge {
   String? remainDateStr;
 
   Challenge(
-      {this.data,
-      this.challengeId,
+      {this.challengeId,
       this.chName,
       this.chType,
       this.beginDate,
@@ -81,7 +79,6 @@ class Challenge {
       this.remainDateStr});
 
   Challenge.fromJson(Map<String, dynamic> json) {
-    data = json['data'];
     challengeId = json['ChallengeId'];
     chName = json['ChName'];
     chType = json['ChType'];
@@ -106,7 +103,7 @@ class Challenge {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['data'] = this.data;
+
     data['ChallengeId'] = challengeId;
     data['ChName'] = chName;
     data['ChType'] = chType;
@@ -132,7 +129,7 @@ class Challenge {
 }
 
 class ChallengeDay {
-  Null? data;
+
   String? challengeId;
   String? userId;
   String? challDate;
@@ -152,7 +149,7 @@ class ChallengeDay {
   String? weekDay;
 
   ChallengeDay(
-      {this.data,
+      {
       this.challengeId,
       this.userId,
       this.challDate,
@@ -172,7 +169,7 @@ class ChallengeDay {
       this.weekDay});
 
   ChallengeDay.fromJson(Map<String, dynamic> json) {
-    data = json['data'];
+
     challengeId = json['ChallengeId'];
     userId = json['UserId'];
     challDate = json['ChallDate'];
@@ -194,7 +191,7 @@ class ChallengeDay {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    data['data'] = this.data;
+
     data['ChallengeId'] = challengeId;
     data['UserId'] = userId;
     data['ChallDate'] = challDate;

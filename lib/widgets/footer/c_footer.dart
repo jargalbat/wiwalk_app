@@ -56,7 +56,7 @@ class CFooter extends StatelessWidget {
                     settings: ButtonSettings.large,
                     text: button1Text,
                     textStyle: context.textStyles.heading16?.copyWith(
-                      color: context.colors.text5,
+                      color: context.colors.textWhite,
                       fontWeight: FontWeight.w500,
                     ),
                     prefixIcon:

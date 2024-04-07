@@ -179,7 +179,7 @@ class _ChallengeTodayBodyState extends State<ChallengeTodayBody> {
                     'Биелэлт',
                     style: context.textStyles.body14?.copyWith(
                       fontWeight: FontWeight.w600,
-                      color: context.colors.text5,
+                      color: context.colors.textWhite,
                     ),
                   ),
 
@@ -191,7 +191,7 @@ class _ChallengeTodayBodyState extends State<ChallengeTodayBody> {
                     style: context.textStyles.body14?.copyWith(
                       fontWeight: FontWeight.w600,
                       fontSize: 22.0,
-                      color: context.colors.text5,
+                      color: context.colors.textWhite,
                     ),
                   ),
                 ],

@@ -6,6 +6,7 @@ import 'package:wiwalk_app/core/utils/shared_pref.dart';
 import 'package:wiwalk_app/modules/auth/auth_bloc.dart';
 import 'package:wiwalk_app/modules/auth/forgot_password/forgot_password_screen.dart';
 import 'package:wiwalk_app/modules/auth/login/login_screen.dart';
+import 'package:wiwalk_app/modules/challenge/map_screen/map_screen.dart';
 import 'package:wiwalk_app/modules/profile/dan_auth_screen.dart';
 import 'package:wiwalk_app/modules/auth/sign_up/sign_up_screen.dart';
 import 'package:wiwalk_app/modules/challenge/challenge_detail_screen/challenge_detail_screen.dart';
@@ -95,6 +96,14 @@ final GoRouter router = GoRouter(
           builder: (BuildContext context, GoRouterState state) {
             final String challengeId = state.pathParameters['id'] ?? '';
             return ChallengeScreen(challengeId: challengeId);
+          },
+        ),
+        GoRoute(
+          name: RouteNames.map,
+          path: '${RouteNames.map}/:id',
+          builder: (BuildContext context, GoRouterState state) {
+            final String challengeId = state.pathParameters['id'] ?? '';
+            return MapScreen(challengeId: challengeId);
           },
         ),
         GoRoute(
