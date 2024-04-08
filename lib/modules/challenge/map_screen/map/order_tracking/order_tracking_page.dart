@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'dart:async';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
-import 'package:location/location.dart';
+import 'package:wiwalk_app/modules/challenge/map_screen/geo_locator_helper.dart';
+// import 'package:location/location.dart';
 import 'package:wiwalk_app/widgets/c_scaffold.dart';
 
 import '../../constants.dart';
@@ -155,35 +157,36 @@ class _OrderTrackingPageState extends State<OrderTrackingPage> {
       // Init
       // GoogleMapController googleMapController = await _controller.future;
 
-      Location location = Location();
-      LocationData locationData = await location.getLocation();
-      if (locationData.latitude != null && locationData.longitude != null) {
+      Position? position = await determinePosition();
+      if (position?.latitude != null && position?.longitude != null) {
         _currentLocation =
-            LatLng(locationData.latitude!, locationData.longitude!);
+            LatLng(position!.latitude, position.longitude);
       }
 
       // Listener
-      location.onLocationChanged.listen((newLocation) async {
-        if (newLocation.latitude != null && newLocation.longitude != null) {
-          _currentLocation = LatLng(
-            newLocation.latitude!,
-            newLocation.longitude!,
-          );
+      // location.onLocationChanged.listen((newLocation) async {
+      //   if (newLocation.latitude != null && newLocation.longitude != null) {
+      //     _currentLocation = LatLng(
+      //       newLocation.latitude!,
+      //       newLocation.longitude!,
+      //     );
+      //
+      //     // GoogleMapController googleMapController = await _controller.future;
+      //     //
+      //     // googleMapController.animateCamera(
+      //     //   CameraUpdate.newCameraPosition(
+      //     //     CameraPosition(
+      //     //       zoom: _zoom,
+      //     //       target: _currentLocation!,
+      //     //     ),
+      //     //   ),
+      //     // );
+      //
+      //     setState(() {});
+      //   }
+      // });
 
-          // GoogleMapController googleMapController = await _controller.future;
-          //
-          // googleMapController.animateCamera(
-          //   CameraUpdate.newCameraPosition(
-          //     CameraPosition(
-          //       zoom: _zoom,
-          //       target: _currentLocation!,
-          //     ),
-          //   ),
-          // );
 
-          setState(() {});
-        }
-      });
     } catch (e) {
       print(e);
     }

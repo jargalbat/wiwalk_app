@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+// import 'package:location/location.dart';
 import 'package:wiwalk_app/widgets/c_scaffold.dart';
 import 'constants.dart';
+import 'geo_locator_helper.dart';
+import 'location_helper.dart';
 
 class MapScreen extends StatefulWidget {
   const MapScreen({super.key, required this.challengeId});
@@ -10,11 +14,12 @@ class MapScreen extends StatefulWidget {
   final String challengeId;
 
   @override
-  _MapScreenState createState() => _MapScreenState();
+  State<MapScreen> createState() => _MapScreenState();
 }
 
 class _MapScreenState extends State<MapScreen> {
-  late GoogleMapController mapController;
+  late GoogleMapController _mapController;
+  // LocationData? _currentLocation;
 
   double _originLatitude = 47.9142963161, _originLongitude = 106.91627601;
   double _destLatitude = 47.9228, _destLongitude = 106.9048;
@@ -30,6 +35,9 @@ class _MapScreenState extends State<MapScreen> {
   void initState() {
     super.initState();
 
+    _originLatitude = 47.9188;
+    _originLongitude = 106.9176;
+
     /// origin marker
     _addMarker(LatLng(_originLatitude, _originLongitude), "origin",
         BitmapDescriptor.defaultMarker);
@@ -38,29 +46,37 @@ class _MapScreenState extends State<MapScreen> {
     _addMarker(LatLng(_destLatitude, _destLongitude), "destination",
         BitmapDescriptor.defaultMarkerWithHue(90));
     // _getPolyline();
+
+    // _getCurrentLocation();
+
+    _determinePosition();
   }
 
   @override
   Widget build(BuildContext context) {
     return CScaffold(
       title: 'Map polyline',
-      body: GoogleMap(
-        initialCameraPosition: CameraPosition(
-            target: LatLng(_originLatitude, _originLongitude), zoom: 15),
-        myLocationEnabled: true,
-        tiltGesturesEnabled: true,
-        compassEnabled: true,
-        scrollGesturesEnabled: true,
-        zoomGesturesEnabled: true,
-        onMapCreated: _onMapCreated,
-        // markers: Set<Marker>.of(markers.values),
-        // polylines: Set<Polyline>.of(polylines.values),
+      body: Stack(
+        children: [
+          GoogleMap(
+            initialCameraPosition: CameraPosition(
+                target: LatLng(_originLatitude, _originLongitude), zoom: 15),
+            myLocationEnabled: true,
+            tiltGesturesEnabled: true,
+            compassEnabled: true,
+            scrollGesturesEnabled: true,
+            zoomGesturesEnabled: true,
+            onMapCreated: _onMapCreated,
+            // markers: Set<Marker>.of(markers.values),
+            // polylines: Set<Polyline>.of(polylines.values),
+          ),
+        ],
       ),
     );
   }
 
   void _onMapCreated(GoogleMapController controller) async {
-    mapController = controller;
+    _mapController = controller;
   }
 
   _addMarker(LatLng position, String id, BitmapDescriptor descriptor) {
@@ -93,5 +109,53 @@ class _MapScreenState extends State<MapScreen> {
       }
     }
     _addPolyLine();
+  }
+
+  // _getCurrentLocation() async {
+  //   // LocationHelper.getCurrentLocation().then((location) {
+  //   //   setState(() {
+  //   //     _currentLocation = location;
+  //   //   });
+  //   // });
+  //
+  //   _currentLocation = await LocationHelper.getCurrentLocation();
+  //   if (_currentLocation != null) {
+  //     // Animate camera to the current location
+  //     // _mapController.animateCamera(
+  //     //   CameraUpdate.newCameraPosition(
+  //     //     CameraPosition(
+  //     //       target: LatLng(_currentLocation!.latitude!, _currentLocation!.longitude!),
+  //     //       zoom: 15.0, // You can adjust the zoom level as needed
+  //     //     ),
+  //     //   ),
+  //     // );
+  //
+  //     // Optionally, add a marker for the current location
+  //     // _addMarker(
+  //     //   LatLng(_currentLocation!.latitude!, _currentLocation!.longitude!),
+  //     //   "current_location",
+  //     //   BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+  //     // );
+  //
+  //     // If you want to draw a polyline from the current location to a destination, you can call _getPolyline() here
+  //     // _getPolyline();
+  //
+  //     // setState(() {}); // This will trigger a rebuild if needed
+  //   }
+  // }
+
+  void _determinePosition() async {
+    Position? position = await determinePosition();
+    if (position != null) {
+      _mapController.animateCamera(
+        CameraUpdate.newCameraPosition(
+          CameraPosition(
+            target: LatLng(position.latitude, position.longitude),
+            zoom: 15.0, // You can adjust the zoom level as needed
+          ),
+        ),
+      );
+    }
+    print(position);
   }
 }

@@ -57,9 +57,11 @@
         <string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
     </array>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string>The app needs the location</string>
+    <string>Need access to your location for showing it on map</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Need access to your location for showing it on map</string>
     <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>The app needs the location</string>
+    <string>Need access to your location for showing it on map</string>
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
 </dict>
