@@ -15,6 +15,7 @@ class CScaffold extends StatelessWidget {
     this.body,
     this.bodySafeArea = true,
     this.floatingActionButton,
+    this.floatingActionButtonLocation,
     this.bottomNavigationBar,
   }) : super(key: key);
 
@@ -27,6 +28,7 @@ class CScaffold extends StatelessWidget {
   final Widget? body;
   final bool bodySafeArea;
   final Widget? floatingActionButton;
+  final FloatingActionButtonLocation? floatingActionButtonLocation;
   final Widget? bottomNavigationBar;
 
   bool get _visibleBackgroundAsset => backgroundAsset != null;
@@ -48,6 +50,7 @@ class CScaffold extends StatelessWidget {
             appBar: _appBar(context),
             body: _body(),
             floatingActionButton: floatingActionButton,
+            floatingActionButtonLocation: floatingActionButtonLocation,
             bottomNavigationBar: bottomNavigationBar,
           ),
         ],

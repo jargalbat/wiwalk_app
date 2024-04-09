@@ -90,7 +90,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
     primaryColor: _primary,
     fontFamily: 'Manrope',
     indicatorColor: _primary,
-    dividerColor: _gray100Light,
+    dividerColor: _secondaryBgLight,
 
     /// Background
     // backgroundColor: _backgroundLight, // deprecated covertted into ColorScheme
@@ -134,6 +134,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
     /// Floating action button
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       foregroundColor: Colors.white,
+      backgroundColor: _primary,
       // backgroundColor: _gray100Light.withOpacity(0.5),
       // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
       // elevation: 0.0,
@@ -291,7 +292,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
     primaryColor: _primary,
     fontFamily: 'Manrope',
     indicatorColor: _primary,
-    dividerColor: _gray100Dark,
+    dividerColor: _secondaryBgLight,
 
     /// Background
     // backgroundColor: _backgroundDark, deprecated converted into ColorScheme
@@ -335,7 +336,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
     /// Buttons
     floatingActionButtonTheme: FloatingActionButtonThemeData(
       foregroundColor: Colors.white,
-      // backgroundColor: _gray100Dark.withOpacity(0.5),
+      backgroundColor: _primary,
       // shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       // elevation: 0.0,
     ),
