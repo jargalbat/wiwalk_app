@@ -44,7 +44,7 @@ dependencies:
 
   # challenge
   pedometer: ^4.0.1
-
+  permission_handler: ^11.0.1
 
 
 dev_dependencies:

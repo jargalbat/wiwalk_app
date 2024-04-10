@@ -4,6 +4,7 @@ import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:pedometer/pedometer.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:wiwalk_app/core/extensions/context_extensions.dart';
 import 'package:wiwalk_app/core/theme/c_size.dart';
 import 'package:wiwalk_app/modules/challenge/map_screen/c_map_bloc.dart';
@@ -76,6 +77,12 @@ class _CMapScreenBodyState extends State<CMapScreenBody> {
 
   //
   bool _isStarted = false;
+
+  Future<void> requestPermissions() async {
+    var status = await Permission.activityRecognition.request();
+    print('status');
+    print(status);
+  }
 
   @override
   void initState() {
@@ -302,7 +309,9 @@ class _CMapScreenBodyState extends State<CMapScreenBody> {
     print(position);
   }
 
-  void _initPlatformState() {
+  void _initPlatformState() async {
+    await requestPermissions();
+
     _pedestrianStatusStream = Pedometer.pedestrianStatusStream;
     _pedestrianStatusStream
         .listen(onPedestrianStatusChanged)
@@ -425,7 +434,9 @@ class _CMapScreenBodyState extends State<CMapScreenBody> {
               style: const TextStyle(fontSize: 60),
             ),
 
-          SizedBox(height: 30.0,)
+          SizedBox(
+            height: 30.0,
+          )
           // const Divider(
           //   height: 100,
           //   thickness: 0,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:pedometer/pedometer.dart';
 import 'package:wiwalk_app/widgets/c_scaffold.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class PedometerPage extends StatefulWidget {
   const PedometerPage({super.key});
@@ -23,7 +24,7 @@ class _PedometerPageState extends State<PedometerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return  CScaffold(
+    return CScaffold(
       title: 'Pedometer',
       body: Center(
         child: Column(
@@ -97,7 +98,9 @@ class _PedometerPageState extends State<PedometerPage> {
     });
   }
 
-  void initPlatformState() {
+  void initPlatformState() async {
+    await requestPermissions();
+
     _pedestrianStatusStream = Pedometer.pedestrianStatusStream;
     _pedestrianStatusStream
         .listen(onPedestrianStatusChanged)
@@ -113,6 +116,8 @@ class _PedometerPageState extends State<PedometerPage> {
     return d.toString().substring(0, 19);
   }
 
-
-
+  Future<void> requestPermissions() async {
+    var status = await Permission.activityRecognition.request();
+    print('status');print(status);
+  }
 }

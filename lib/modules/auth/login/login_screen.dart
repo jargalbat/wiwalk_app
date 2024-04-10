@@ -55,9 +55,11 @@ class _LoginScreenState extends State<LoginScreen> {
       _usernameController.text = 'jagaauser2@gmail.com';
       _passwordController.text = 'Jagaapass';
 
-      _usernameController.text = '95770077';
-      _passwordController.text = '7777';
+
     }
+
+    _usernameController.text = '95770077';
+    _passwordController.text = '7777';
 
     super.initState();
   }
