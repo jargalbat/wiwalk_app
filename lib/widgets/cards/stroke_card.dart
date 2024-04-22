@@ -22,7 +22,7 @@ class StrokeCard extends StatelessWidget {
         child: InkWell(
           onTap: onTap,
           child: Container(
-            padding: const EdgeInsets.fromLTRB(0.0, 5.0, 5.0, 0.0),
+            padding: const EdgeInsets.fromLTRB(0.0, 3.0, 3.0, 0.0),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(CSize.cardBorderRadius8),

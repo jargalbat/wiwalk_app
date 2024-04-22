@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 class ChallengeHelper {
   static String getChallengeStatusName(String? status) {
     switch (status) {

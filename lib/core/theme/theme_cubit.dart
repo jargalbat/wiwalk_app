@@ -450,10 +450,10 @@ class ThemeCubit extends Cubit<ThemeMode> {
   static const _gray140Light = Color(0xFF8e8e93);
   static const _gray140Dark = Color(0xFF8e8e93);
 
-  static const _text2Light = Color(0xFF505055);
-  static const _text2Dark = Color(0xFFD8D8D9);
-  static const _text3Light = Color(0xFF9E9EA1);
-  static const _text3Dark = Color(0xFF9E9EA1);
+  static const _text2Light = Color(0xFF58616B);
+  static const _text2Dark = Color(0xFF58616B);
+  static const _text3Light = Color(0xFF88939E);
+  static const _text3Dark = Color(0xFF88939E);
 
   static const _primaryBgLight = Colors.white;
   static const _primaryBgDark = Colors.black;
