@@ -90,7 +90,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
     primaryColor: _primary,
     fontFamily: 'Manrope',
     indicatorColor: _primary,
-    dividerColor: _secondaryBgLight,
+    dividerColor: _neutralGreyBlue,
 
     /// Background
     // backgroundColor: _backgroundLight, // deprecated covertted into ColorScheme
@@ -292,7 +292,7 @@ class ThemeCubit extends Cubit<ThemeMode> {
     primaryColor: _primary,
     fontFamily: 'Manrope',
     indicatorColor: _primary,
-    dividerColor: _secondaryBgLight,
+    dividerColor: _neutralGreyBlue,
 
     /// Background
     // backgroundColor: _backgroundDark, deprecated converted into ColorScheme
@@ -461,4 +461,6 @@ class ThemeCubit extends Cubit<ThemeMode> {
   static const _secondaryBgDark = _gray40Dark;
 
   static final _cardShadow = const Color(0xFF48555C).withOpacity(0.1);
+
+  static const _neutralGreyBlue = const Color(0xFFD3DFEB);
 }

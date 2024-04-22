@@ -24,19 +24,20 @@ AppBar CAppBar({
           svgAsset: Assets.arrowLeft,
         ),
     title: Text(title ?? ''),
-    flexibleSpace: showBottomBorder
-        ? Container(
-            decoration: BoxDecoration(
-              border: Border(
-                bottom: BorderSide(
-                  color: context
-                      .theme.dividerColor, // Use the borderColor parameter
-                  width: 1.0, // Customize border width
-                ),
-              ),
-            ),
-          )
-        : null,
+    flexibleSpace: showBottomBorder ? appBarBottomBorder(context) : null,
     elevation: 0, // Remove shadow under AppBar
+  );
+}
+
+Widget appBarBottomBorder(BuildContext context) {
+  return Container(
+    decoration: BoxDecoration(
+      border: Border(
+        bottom: BorderSide(
+          color: context.theme.dividerColor,
+          width: 1.0,
+        ),
+      ),
+    ),
   );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:wiwalk_app/core/theme/c_size.dart';
 
 class SurveyDashboard extends StatefulWidget {
   const SurveyDashboard({super.key});
@@ -15,9 +16,8 @@ class _SurveyDashboardState extends State<SurveyDashboard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Divider(),
 
-            const SizedBox(height: 10.0),
+            const SizedBox(height: CSize.spacing24),
 
             // const SizedBox(width: 10.0),
           ],

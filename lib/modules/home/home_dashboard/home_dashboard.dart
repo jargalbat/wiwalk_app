@@ -23,9 +23,7 @@ class _HomeDashboardState extends State<HomeDashboard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Divider(),
-
-            const SizedBox(height: 10.0),
+            const SizedBox(height: CSize.spacing24),
 
             /// Өнөөдрийн чэлленж
             const ChallengeToday(

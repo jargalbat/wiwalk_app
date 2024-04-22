@@ -135,8 +135,9 @@ class _SignUpScreenBodyState extends State<SignUpScreenBody> {
         height: 4.0,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(2.0),
-          color:
-              isActive ? context.theme.primaryColor : const Color(0xFFD3DFEB),
+          color: isActive
+              ? context.theme.primaryColor
+              : context.theme.dividerColor,
         ),
       ),
     );

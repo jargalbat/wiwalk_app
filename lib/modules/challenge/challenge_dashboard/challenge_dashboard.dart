@@ -5,6 +5,7 @@ import 'package:wiwalk_app/data/models/c_request.dart';
 import 'package:wiwalk_app/data/models/challenge/challenges_response.dart';
 import 'package:wiwalk_app/modules/challenge/challenge_dashboard/chalenge_dashboard_bloc.dart';
 import 'package:wiwalk_app/modules/challenge/challenge_dashboard/challenge_item_widget.dart';
+import 'package:wiwalk_app/widgets/c_scaffold.dart';
 import 'package:wiwalk_app/widgets/dialogs/custom_dialog.dart';
 import 'package:wiwalk_app/widgets/text/section_title.dart';
 
@@ -54,14 +55,11 @@ class _ChallengeDashboardState extends State<ChallengeDashboard> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Divider(),
-
-                    const SizedBox(height: 10.0),
-
+                    const SizedBox(height: CSize.spacing24),
 
                     /// Title
                     SectionTitle(
-                      title: 'Өнөөдрийн чэлленж',
+                      title: 'Үндсэн чэлленж',
                       margin: _horizontalMargin,
                     ),
 

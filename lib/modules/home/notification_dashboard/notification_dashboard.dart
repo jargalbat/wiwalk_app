@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../../core/theme/c_size.dart';
+
 class NotificationDashboard extends StatefulWidget {
   const NotificationDashboard({super.key});
 
@@ -15,9 +17,7 @@ class _NotificationDashboardState extends State<NotificationDashboard> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Divider(),
-
-            const SizedBox(height: 10.0),
+            const SizedBox(height: CSize.spacing24),
 
             // const SizedBox(width: 10.0),
           ],
